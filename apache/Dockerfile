@@ -5,11 +5,11 @@
 #######################################################################
 
 # Use the centos base image
-FROM centos:centos6
+FROM luszczynski/centos6:java-version
 
 MAINTAINER gluszczy <gluszczy@redhat.com>
 
-RUN yum -y update; yum -y install httpd which telnet unzip openssh-server sudo openssh-clients vim;yum clean all
+RUN yum -y update; yum -y install httpd;yum clean all
 
 ENV HOME /root
 
