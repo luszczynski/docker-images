@@ -5,21 +5,9 @@
 #######################################################################
 
 # Use the centos base image
-FROM centos6
+FROM luszczynski/centos6:java-version
 
 MAINTAINER gluszczy <gluszczy@redhat.com>
-
-############################################
-# Creating user jboss
-############################################
-RUN echo '%jboss ALL=(ALL) ALL' >> /etc/sudoers
-RUN useradd -m -d /home/jboss -p jboss jboss
-RUN echo 'root:redhat' |chpasswd
-
-##########################################################
-# Install Java JDK, SSH and other useful cmdline utilities
-##########################################################
-RUN yum -y install java-1.7.0-openjdk which telnet unzip openssh-server sudo openssh-clients
 
 ####################
 # Install PostgreSQL

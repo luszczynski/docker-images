@@ -23,11 +23,11 @@ ENV SUPPORT $HOME/support
 ENV SOFTWARE $HOME/software
 
 ############################################
-# Install JBoss EAP
+# Install JBoss EAP 
 ############################################
 
 RUN mkdir -p $INSTALLDIR_JON_AGENT; mkdir -p $INSTALLDIR_EAP; mkdir $HOME/support; mkdir $HOME/software
-RUN chown -R jboss.jboss  $HOME $INSTALLDIR_EAP 
+RUN chown -R jboss.jboss  $HOME $INSTALLDIR_EAP
 
 USER jboss
 
@@ -36,10 +36,10 @@ COPY software/$EAP_ZIP_NAME $SOFTWARE/
 
 RUN unzip $HOME/software/$EAP_ZIP_NAME -d $INSTALLDIR_EAP/
 
-COPY support/mgmt-groups.properties $EAP_HOME/domain/configuration/
-COPY support/mgmt-users.properties $EAP_HOME/domain/configuration/
-COPY support/domain.xml $EAP_HOME/domain/configuration/
-COPY support/host-master.xml $EAP_HOME/domain/configuration/
+COPY support/mgmt-groups.properties $EAP_HOME/domain/configuration/mgmt-groups.properties
+COPY support/mgmt-users.properties $EAP_HOME/domain/configuration/mgmt-users.properties
+COPY support/host-slave.xml $EAP_HOME/domain/configuration/host-slave.xml
+COPY support/start.sh $HOME/start.sh 
 
 #RUN $EAP_HOME/bin/jboss-cli.sh --user=admin --password=redhat@123 --controller=localhost "patch apply $HOME/software/$EAP_PATCH_NAME"
 
@@ -57,16 +57,8 @@ COPY support/agent-configuration.xml $INSTALLDIR_JON_AGENT/rhq-agent/conf/
 
 # start.sh
 USER root
-RUN echo "#!/bin/sh" >> $HOME/run.sh
-RUN echo "echo JBoss EAP Start script" >> $HOME/run.sh
-RUN echo "service sshd start" >> $HOME/run.sh
-RUN echo 'sed -i "s/agent_name_script/$(hostname -i)/g" $INSTALLDIR_JON_AGENT/rhq-agent/conf/agent-configuration.xml' >> $HOME/run.sh
-RUN echo 'sed -i "s/agent_ip_script/$(hostname -i)/g" $INSTALLDIR_JON_AGENT/rhq-agent/conf/agent-configuration.xml' >> $HOME/run.sh
-RUN echo 'sed -i "s/server_ip_script/jon-server/g" $INSTALLDIR_JON_AGENT/rhq-agent/conf/agent-configuration.xml' >> $HOME/run.sh 
-RUN echo "echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts" >> $HOME/run.sh
-RUN echo "$INSTALLDIR_JON_AGENT/rhq-agent/bin/rhq-agent-wrapper.sh start" >> $HOME/run.sh
-RUN echo 'runuser -l jboss -c "$EAP_HOME/bin/domain.sh -b $(hostname -i) -bmanagement $(hostname -i) -bunsecure $(hostname -i) --host-config=host-master.xml"' >> $HOME/run.sh
-RUN chmod +x $HOME/run.sh
+
+RUN chown -R jboss.jboss $EAP_HOME
 
 # Clean up
 RUN rm -rf $SUPPORT
@@ -74,6 +66,4 @@ RUN rm -rf $SOFTWARE
 
 EXPOSE 22 8080 9990 9999
 
-CMD /home/jboss/run.sh
-
-# Finished
+ENTRYPOINT ["/home/jboss/start.sh"]
