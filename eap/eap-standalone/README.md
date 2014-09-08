@@ -1,16 +1,14 @@
-# EAP Host Controller Docker Image
+# EAP Standalone Docker Image
 
 EAP Version: 6.3
 
-JON Version: 3.2
-
 ## build.sh
-Use to build EAP Domain docker image.
+Use to build EAP Standalone docker image.
 This image is based on centos 6.
 Before building this image, you must download `jboss-eap-6.3.0.zip` and `rhq-enterprise-agent-4.9.0.JON320GA.jar` and put them in software folder.
 
 ## runBash.sh
-Create a new EAP Host Controller container running /bin/bash
+Create a new EAP Standalone container running /bin/bash
 
 ## runSSH.sh
 ssh into your running container.
@@ -18,11 +16,18 @@ ssh into your running container.
 password: redhat
 
 ## runDocker.sh
-Create a new container running EAP Host Controller and JON Agent
+Create a new container running EAP Standalone and JON Agent
 
 ### EAP
-After running, EAP host controller will try to connect to eap-domain. So, be sure you have started eap-domain first.
-Remember you need to give a name for each host controller container. Therefore, you can have as many host controller as you want.
+After running, you can access EAP Console on your localhost:9990.
+
+User: admin
+
+Password: redhat@123
+
+EAP folder: /opt/jboss/eap
+
+JON agent folder: /opt/jboss/jon
 
 ### JON Agent
 There is a jon agent running inside this container. It will try to connect to jon-server. So, it is mandatory to start first jon-server container so docker can link with it.
