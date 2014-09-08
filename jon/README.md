@@ -2,7 +2,7 @@
 
 JON Server Version: 3.2
 
-Postgresql Version: 9.2
+Postgresql Version: 8.4
 
 ## build.sh
 Use to build JON Server docker image.
@@ -20,6 +20,11 @@ After running, you can access JON GUI on your localhost:7080.
 User: rhqadmin
 Password: rhqadmin
 
+JON installation folder: /opt/jboss/jon
+
 ### SSH
 Also, you can ssh into container using user root and password redhat.
-To check ip address use docker inspect --format '{{ .NetworkSettings.IPAddress }}' jon-server.
+To check ip address use 
+```
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' jon-server
+```
