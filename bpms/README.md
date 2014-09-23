@@ -1,16 +1,16 @@
-# EAP Domain Docker Image
+# BPMS Docker Image
 
-EAP Version: 6.3
+BPMS Version: 6.0.2
 
-JON Version: 3.2
+JON Agent Version: 3.2
 
 ## build.sh
-Use to build EAP Domain docker image.
+Use to build BPMS docker image.
 This image is based on centos 6.
-Before building this image, you must download `jboss-eap-6.3.0.zip` and `rhq-enterprise-agent-4.9.0.JON320GA.jar` and put them in software folder.
+Before building this image, you must download `jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip`, `jboss-eap-6.1.1.zip` and `rhq-enterprise-agent-4.9.0.JON320GA.jar` and put them in software folder.
 
 ## runBash.sh
-Create a new EAP Domain container running /bin/bash
+Create a new BPMS container running /bin/bash
 
 ## runSSH.sh
 ssh into your running container.
@@ -18,16 +18,16 @@ ssh into your running container.
 password: redhat
 
 ## runDocker.sh
-Create a new container running EAP Domain and JON Agent.
+Create a new container running BPMS and JON Agent.
 
-### EAP
-After running, you can access EAP Console on your localhost:9990.
+### BPMS
+After running, you can access BPMS Business Central on http://127.0.0.1:8080/business-central
 
 User: admin
 
 Password: redhat@123
 
-EAP folder: /opt/jboss/eap
+BPMS folder: /opt/jboss/bpms
 
 JON agent folder: /opt/jboss/jon
 
