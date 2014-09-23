@@ -34,6 +34,9 @@ USER jboss
 COPY software/$EAP_ZIP_NAME $SOFTWARE/
 #COPY software/$EAP_PATCH_NAME $SOFTWARE/
 
+COPY support/shutdownWhenDrained.sh $HOME/
+COPY support/shutdownWhenDrained_v3.0.sh $HOME/
+
 RUN unzip $HOME/software/$EAP_ZIP_NAME -d $INSTALLDIR_EAP/
 
 COPY support/mgmt-groups.properties $EAP_HOME/domain/configuration/
