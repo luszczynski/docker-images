@@ -7,7 +7,7 @@ fi
 
 . ../../docker.properties
 
-CMD_START="docker run --rm --privileged --name $1";
+CMD_START="docker run -d --privileged --name $1";
 
 isApache=$(sudo docker ps | grep $APACHE_CONTAINER_NAME)
 test "x$isApache" = "x" || CMD_START="$CMD_START --link $APACHE_CONTAINER_NAME:$APACHE_CONTAINER_NAME"
@@ -21,3 +21,5 @@ test "x$isJON" = "x" || CMD_START="$CMD_START --link $JON_SERVER_CONTAINER_NAME:
 CMD_START="$CMD_START $DOCKER_USER/centos6-$HOST_CONTAINER_NAME $1"
 
 sudo $CMD_START;
+
+#sudo docker logs -f $1
