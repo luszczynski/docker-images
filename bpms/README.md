@@ -7,7 +7,7 @@ JON Agent Version: 3.2
 ## build.sh
 Use to build BPMS docker image.
 This image is based on centos 6.
-Before building this image, you must download `jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip`, `jboss-eap-6.1.1.zip` and `rhq-enterprise-agent-4.9.0.JON320GA.jar` and put them in software folder.
+Before building this image, you must download `jboss-bpms-6.0.3.GA-redhat-1-deployable-eap6.x.zip`, `jboss-eap-6.1.1.zip` and `rhq-enterprise-agent-4.9.0.JON320GA.jar` and put them in software folder.
 
 ## runBash.sh
 Create a new BPMS container running /bin/bash

@@ -19,10 +19,10 @@ ENV INSTALLDIR_BPMS /opt/jboss/bpms
 RUN mkdir -p $SOFTWARE; mkdir -p $SUPPORT; mkdir -p $INSTALLDIR_JON_AGENT; mkdir -p $INSTALLDIR_BPMS;
 
 COPY software/jboss-eap-6.1.1.zip $SOFTWARE/
-COPY software/jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip $SOFTWARE/
+COPY software/jboss-bpms-6.0.3.GA-redhat-1-deployable-eap6.x.zip $SOFTWARE/
 COPY support/install.xml $SUPPORT/
 RUN unzip $SOFTWARE/jboss-eap-6.1.1.zip -d $INSTALLDIR_BPMS/
-RUN unzip -o $SOFTWARE/jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip -d $INSTALLDIR_BPMS
+RUN unzip -o $SOFTWARE/jboss-bpms-6.0.3.GA-redhat-1-deployable-eap6.x.zip -d $INSTALLDIR_BPMS
 
 COPY support/mgmt-users.properties $INSTALLDIR_BPMS/jboss-eap-6.1/standalone/configuration/
 COPY support/application-users.properties $INSTALLDIR_BPMS/jboss-eap-6.1/standalone/configuration/
