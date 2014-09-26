@@ -10,10 +10,10 @@ This image is based on centos 6.
 Before building this image, you must download `jboss-eap-6.3.0.zip`, `jboss-eap-6.3.1-patch.zip` and `rhq-enterprise-agent-4.9.0.JON320GA.jar` and put them in software folder.
 
 Ensure all JAR/ZIP have right permissions:
-
+```
 $ cd software
 $ chmod o+r *.zip *.jar
-
+```
 ## runBash.sh
 Create a new EAP Domain container running /bin/bash
 
