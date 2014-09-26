@@ -12,7 +12,7 @@ MAINTAINER gluszczy <gluszczy@redhat.com>
 ############################################
 # Set environment variables
 ############################################
-ENV EAP_PATCH_NAME none
+ENV EAP_PATCH_NAME jboss-eap-6.3.1-patch.zip
 ENV EAP_ZIP_NAME jboss-eap-6.3.0.zip
 ENV INSTALLDIR_EAP /opt/jboss/eap
 ENV INSTALLDIR_JON_AGENT /opt/jboss/jon
@@ -27,12 +27,12 @@ ENV SOFTWARE $HOME/software
 ############################################
 
 RUN mkdir -p $INSTALLDIR_JON_AGENT; mkdir -p $INSTALLDIR_EAP; mkdir $HOME/support; mkdir $HOME/software
-RUN chown -R jboss.jboss  $HOME $INSTALLDIR_EAP 
+RUN chown -R jboss.jboss  $HOME $INSTALLDIR_EAP $SOFTWARE
 
 USER jboss
 
 COPY software/$EAP_ZIP_NAME $SOFTWARE/
-#COPY software/$EAP_PATCH_NAME $SOFTWARE/
+COPY software/$EAP_PATCH_NAME $SOFTWARE/
 
 COPY support/shutdownWhenDrained.sh $HOME/
 COPY support/shutdownWhenDrained_v3.0.sh $HOME/
@@ -44,7 +44,7 @@ COPY support/mgmt-users.properties $EAP_HOME/domain/configuration/
 COPY support/domain.xml $EAP_HOME/domain/configuration/
 COPY support/host-master.xml $EAP_HOME/domain/configuration/
 
-#RUN $EAP_HOME/bin/jboss-cli.sh --user=admin --password=redhat@123 --controller=localhost "patch apply $HOME/software/$EAP_PATCH_NAME"
+RUN $EAP_HOME/bin/jboss-cli.sh --user=admin --password=redhat@123 --controller=localhost "patch apply $SOFTWARE/$EAP_PATCH_NAME"
 
 RUN echo "export JAVA_HOME=/usr/lib/jvm/jre" >> $HOME/.bash_profile
 RUN echo "alias ll='ls -l --color=auto'" >> $HOME/.bash_profile

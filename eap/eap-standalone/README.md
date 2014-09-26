@@ -1,11 +1,16 @@
 # EAP Standalone Docker Image
 
-EAP Version: 6.3
+EAP Version: 6.3.1
 
 ## build.sh
 Use to build EAP Standalone docker image.
 This image is based on centos 6.
-Before building this image, you must download `jboss-eap-6.3.0.zip` and `rhq-enterprise-agent-4.9.0.JON320GA.jar` and put them in software folder.
+Before building this image, you must download `jboss-eap-6.3.0.zip`, `jboss-eap-6.3.1-patch.zip` and `rhq-enterprise-agent-4.9.0.JON320GA.jar` and put them in software folder.
+
+Ensure all JAR/ZIP have right permissions:
+
+$ cd software
+$ chmod o+r *.zip *.jar
 
 ## runBash.sh
 Create a new EAP Standalone container running /bin/bash

@@ -12,7 +12,7 @@ MAINTAINER gluszczy <gluszczy@redhat.com>
 ############################################
 # Set environment variables
 ############################################
-ENV EAP_PATCH_NAME none
+ENV EAP_PATCH_NAME jboss-eap-6.3.1-patch.zip
 ENV EAP_ZIP_NAME jboss-eap-6.3.0.zip
 ENV INSTALLDIR_EAP /opt/jboss/eap
 ENV INSTALLDIR_JON_AGENT /opt/jboss/jon
@@ -27,18 +27,18 @@ RUN chown -R jboss.jboss  $HOME $INSTALLDIR_EAP
 
 USER jboss
 
-ADD software/jboss-eap-6.3.0.zip $HOME/software/jboss-eap-6.3.0.zip
-#ADD software/jboss-eap-6.2.4-patch.zip $HOME/software/jboss-eap-6.2.4-patch.zip
+COPY software/$EAP_ZIP_NAME $HOME/software/
+COPY software/$EAP_PATCH_NAME $HOME/software/
 
-ADD support/mgmt-groups.properties $HOME/support/mgmt-groups.properties
-ADD support/mgmt-users.properties $HOME/support/mgmt-users.properties
+COPY support/mgmt-groups.properties $HOME/support/
+COPY support/mgmt-users.properties $HOME/support/
 
-RUN unzip $HOME/software/jboss-eap-6.3.0.zip -d $INSTALLDIR_EAP
+RUN unzip $HOME/software/$EAP_ZIP_NAME -d $INSTALLDIR_EAP
 
 RUN cp $HOME/support/mgmt-groups.properties $INSTALLDIR_EAP/jboss-eap-6.3/standalone/configuration/
 RUN cp $HOME/support/mgmt-users.properties $INSTALLDIR_EAP/jboss-eap-6.3/standalone/configuration/
 
-#RUN $HOME/eap/jboss-eap-6.2/bin/jboss-cli.sh --user=admin --password=redhat@123 --controller=localhost "patch apply /home/jboss/eap/software/jboss-eap-6.2.4-patch.zip"
+RUN $INSTALLDIR_EAP/jboss-eap-6.3/bin/jboss-cli.sh --user=admin --password=redhat@123 --controller=localhost "patch apply $HOME/software/$EAP_PATCH_NAME"
 
 RUN echo "export JAVA_HOME=/usr/lib/jvm/jre" >> $HOME/.bash_profile
 RUN echo "alias ll='ls -l --color=auto'" >> $HOME/.bash_profile
