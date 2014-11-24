@@ -4,17 +4,34 @@
 #
 # Gustavo Luszczynski <gluszczy@redhat.com>
 
-. ../docker.properties
+. ../docker.sh
 
-CMD_START="docker run --rm -p 127.0.0.2:8080:8080 -p 127.0.0.2:9990:9990 --privileged --name $KEYCLOAK_CONTAINER_NAME";
+if [ "$#" -ne 1 ]; then
+	usage
+fi
 
-isApache=$(sudo docker ps | grep $APACHE_CONTAINER_NAME)
-test "x$isApache" = "x" || CMD_START="$CMD_START --link $APACHE_CONTAINER_NAME:$APACHE_CONTAINER_NAME"
-
-CMD_START="$CMD_START $DOCKER_USER/centos6-$KEYCLOAK_CONTAINER_NAME $1"
-
-sudo $CMD_START;
-
-#sudo docker run --rm -p 127.0.0.1:8080:8080 --name $KEYCLOAK_CONTAINER_NAME $DOCKER_USER/centos6-$KEYCLOAK_CONTAINER_NAME
-
-
+case "$1" in
+	start)
+		startContainer "-p 127.0.0.2:8080:8080 -p 127.0.0.2:9990:9990" $KEYCLOAK_CONTAINER_NAME "$APACHE_CONTAINER_NAME" $KEYCLOAK_CONTAINER_NAME
+	;;
+	stop)
+		stopContainer $KEYCLOAK_CONTAINER_NAME
+	;;
+	kill)
+		killContainer $KEYCLOAK_CONTAINER_NAME
+	;;
+	log)
+		logContainer $KEYCLOAK_CONTAINER_NAME
+	;;
+	ssh)
+		sshContainer $KEYCLOAK_CONTAINER_NAME
+	;;
+	bash)
+		bashContainer "-p 127.0.0.1:8080:8080" $KEYCLOAK_CONTAINER_NAME $KEYCLOAK_CONTAINER_NAME
+	;;
+	build)
+		buildImage $KEYCLOAK_CONTAINER_NAME
+	;;
+	*)
+		usage
+esac

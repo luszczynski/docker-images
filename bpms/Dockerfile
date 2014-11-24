@@ -9,10 +9,6 @@ FROM luszczynski/centos6:java-version
 
 MAINTAINER gluszczy <gluszczy@redhat.com>
 
-ENV JAVA_HOME /usr/lib/jvm/jre
-ENV HOME /home/jboss
-ENV SUPPORT $HOME/support
-ENV SOFTWARE $HOME/software
 ENV INSTALLDIR_JON_AGENT /opt/jboss/jon
 ENV INSTALLDIR_BPMS /opt/jboss/bpms
 
@@ -31,15 +27,11 @@ COPY support/application-roles.properties $INSTALLDIR_BPMS/jboss-eap-6.1/standal
 ############################################
 # Install JON Agent
 ############################################
-COPY software/rhq-enterprise-agent-4.9.0.JON320GA.jar $SOFTWARE/
-RUN java -jar $HOME/software/rhq-enterprise-agent-4.9.0.JON320GA.jar --install=$INSTALLDIR_JON_AGENT/
+COPY software/rhq-enterprise-agent-4.12.0.JON330GA.jar $SOFTWARE/
+RUN java -jar $HOME/software/rhq-enterprise-agent-4.12.0.JON330GA.jar --install=$INSTALLDIR_JON_AGENT/
 COPY support/agent-configuration.xml $INSTALLDIR_JON_AGENT/rhq-agent/conf/
 
 #RUN rm -rf $INSTALLDIR/jboss-eap-6.1/standalone/configuration/standalone_xml_history/current
-
-# Command line shortcuts
-RUN echo "alias ll='ls -l --color=auto'" >> $HOME/.bash_profile
-RUN echo "alias grep='grep --color=auto'" >> $HOME/.bash_profile
 
 RUN chown -R jboss: $INSTALLDIR_BPMS/
 
@@ -47,7 +39,6 @@ RUN chown -R jboss: $INSTALLDIR_BPMS/
 USER root
 RUN echo "#!/bin/sh" >> $HOME/run.sh
 RUN echo "echo JBoss BPMS Start script" >> $HOME/run.sh
-RUN echo "service sshd start " >> $HOME/run.sh
 RUN echo 'sed -i "s/agent_name_script/$(hostname -i)/g" $INSTALLDIR_JON_AGENT/rhq-agent/conf/agent-configuration.xml' >> $HOME/run.sh
 RUN echo 'sed -i "s/agent_ip_script/$(hostname -i)/g" $INSTALLDIR_JON_AGENT/rhq-agent/conf/agent-configuration.xml' >> $HOME/run.sh
 RUN echo 'sed -i "s/server_ip_script/jon-server/g" $INSTALLDIR_JON_AGENT/rhq-agent/conf/agent-configuration.xml' >> $HOME/run.sh 
@@ -60,6 +51,6 @@ RUN chmod +x $HOME/run.sh
 RUN rm -rf $SUPPORT
 RUN rm -rf $SOFTWARE
 
-EXPOSE 22 8080 9990
+EXPOSE 8080 9990
 
 CMD /home/jboss/run.sh
