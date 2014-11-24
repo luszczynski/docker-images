@@ -14,6 +14,6 @@ If you want to play, remember there is an order that you should run each contain
 This order is due the way docker links containers. According Docker documentation, you can only link one container with another that is already running.
 
 ## Build
-You have to build each image. To do so, enter each directory and run build.sh.
+You have to build each image. To do so, enter each directory and run runDocker.sh build.
 
 Enjoy!
