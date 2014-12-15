@@ -4,31 +4,6 @@ BPMS Version: 6.0.3
 
 JON Agent Version: 3.3
 
-## runDocker.sh ( start | stop | kill | log | ssh | bash | build )
-
-**start:**
-Start container
-
-**stop:**
-Stop your container gracefully
-
-**kill:**
-Kill your container
-
-**log:**
-Show container's log
-
-**ssh:**
-SSH into your running container. (Requires docker 1.3+)
-
-**bash:**
-Create a new container running bash
-
-**build**
-Use to build BPMS docker image.
-This image is based on centos 6.
-Before building this image, you must download `jboss-bpms-6.0.3.GA-redhat-1-deployable-eap6.x.zip`, `jboss-eap-6.1.1.zip` and `rhq-enterprise-agent-4.12.0.JON330GA.jar` and put them in software folder.
-
 ## BPMS
 After running, you can access BPMS Business Central on http://127.0.0.1:8080/business-central
 
@@ -36,9 +11,5 @@ User: admin
 
 Password: redhat@123
 
-BPMS folder: /opt/jboss/bpms
-
-JON agent folder: /opt/jboss/jon
-
 ## JON Agent
-There is a JON agent running inside this container. It will try to connect to JON server. If you want to play with JON Server, you must start it first so docker can create a connection between both containers.
+There is a JON agent running inside this container.

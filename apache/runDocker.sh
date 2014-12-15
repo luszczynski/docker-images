@@ -17,14 +17,17 @@ case "$1" in
 	stop)
 		stopContainer $APACHE_CONTAINER_NAME
 	;;
+	status)
+		statusContainer $APACHE_CONTAINER_NAME
+	;;
 	kill)
 		killContainer $APACHE_CONTAINER_NAME
 	;;
 	log)
 		logContainer $APACHE_CONTAINER_NAME
 	;;
-	ssh)
-		sshContainer $APACHE_CONTAINER_NAME
+	attach)
+		attachContainer $APACHE_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "-p 127.0.0.1:80:80" $APACHE_CONTAINER_NAME $APACHE_CONTAINER_NAME

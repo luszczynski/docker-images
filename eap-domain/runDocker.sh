@@ -17,14 +17,17 @@ case "$1" in
 	stop)
 		stopContainer $DOMAIN_CONTROLLER_CONTAINER_NAME
 	;;
+	status)
+		statusContainer $DOMAIN_CONTROLLER_CONTAINER_NAME
+	;;
 	kill)
 		killContainer $DOMAIN_CONTROLLER_CONTAINER_NAME
 	;;
 	log)
 		logContainer $DOMAIN_CONTROLLER_CONTAINER_NAME
 	;;
-	ssh)
-		sshContainer $DOMAIN_CONTROLLER_CONTAINER_NAME
+	attach)
+		attachContainer) $DOMAIN_CONTROLLER_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "-p 127.0.0.1:9990:9990" $DOMAIN_CONTROLLER_CONTAINER_NAME $DOMAIN_CONTROLLER_CONTAINER_NAME

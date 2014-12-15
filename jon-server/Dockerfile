@@ -4,19 +4,17 @@
 #                                                                     #
 #######################################################################
 
-# Use the centos base image
-FROM luszczynski/centos6:java-version
+FROM luszczynski/centos7:java-version
 
-MAINTAINER gluszczy <gluszczy@redhat.com>
+MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 
 USER root
 
-COPY software/*.zip $HOME/
+COPY software/*.zip $SOFTWARE/
+COPY support/rhq-nodb-deploy.sh $SUPPORT/
 
-ADD support/rhq-nodb-deploy.sh $HOME/rhq-nodb-deploy.sh
-
-RUN chmod +x $HOME/rhq-nodb-deploy.sh
+RUN chmod +x $SUPPORT/rhq-nodb-deploy.sh
 
 EXPOSE 7080
 
-CMD $HOME/rhq-nodb-deploy.sh
+CMD ["$SUPPORT/rhq-nodb-deploy.sh"]

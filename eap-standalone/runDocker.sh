@@ -17,14 +17,17 @@ case "$1" in
 	stop)
 		stopContainer $STANDALONE_CONTAINER_NAME
 	;;
+	status)
+		statusContainer $STANDALONE_CONTAINER_NAME
+	;;
 	kill)
 		killContainer $STANDALONE_CONTAINER_NAME
 	;;
 	log)
 		logContainer $STANDALONE_CONTAINER_NAME
 	;;
-	ssh)
-		sshContainer $STANDALONE_CONTAINER_NAME
+	attach)
+		attachContainer) $STANDALONE_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "" $STANDALONE_CONTAINER_NAME $STANDALONE_CONTAINER_NAME

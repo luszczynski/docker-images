@@ -8,14 +8,17 @@
 
 if [ "$#" -ne 2 ]; then
 	usage "<host controller name>"
-fi
+fi	
 
 case "$1" in
 	start)
-		startContainer "" $2 "$APACHE_CONTAINER_NAME,$DOMAIN_CONTROLLER_CONTAINER_NAME,$JON_SERVER_CONTAINER_NAME" $HOST_CONTAINER_NAME $2
+		startContainer "" $2 "" $HOST_CONTAINER_NAME $2
 	;;
 	stop)
 		stopContainer $2
+	;;
+	status)
+		statusContainer $2
 	;;
 	kill)
 		killContainer $2
@@ -23,11 +26,11 @@ case "$1" in
 	log)
 		logContainer $2
 	;;
-	ssh)
-		sshContainer $2
+	attach)
+		attachContainer) $2
 	;;
 	bash)
-		bashContainer "" $HOST_CONTAINER_NAME HOST_CONTAINER_NAME
+		bashContainer "" $HOST_CONTAINER_NAME $HOST_CONTAINER_NAME
 	;;
 	build)
 		buildImage $HOST_CONTAINER_NAME

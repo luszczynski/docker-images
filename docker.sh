@@ -11,12 +11,14 @@ POSTGRESQL_CONTAINER_NAME="postgresql-server"
 FUSE_CONTAINER_NAME="fuse"
 BPMS_CONTAINER_NAME="bpms"
 JDG_CONTAINER_NAME="jdg"
+JDV_CONTAINER_NAME="jdv"
 JDG_NODE01_NAME="node01"
 KEYCLOAK_CONTAINER_NAME="keycloak-server"
+DNSMASQ_CONTAINER_NAME="dnsmasq"
 DOCKER_USER="luszczynski"
 
 function usage() {
-	  echo "Usage: $0 ( start | stop | kill | log | ssh | bash | build ) $1"
+	  echo "Usage: $0 ( start | stop | status | kill | log | attach | bash | build ) $1"
 	  exit 1
 }
 
@@ -25,21 +27,25 @@ function usage() {
 # $3: link:<container name1, container name2>
 # $4: Image name
 function startContainer() {
+	IP_DNS=$(sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' $DNSMASQ_CONTAINER_NAME 2> /dev/null)
 
-	CMD_START="sudo docker run --privileged $1 -d --name $2";
+	if [ "x$IP_DNS" == "x" ]; then
+		echo "dnsmasq not started."
+		echo "starting now..."
+		../dnsmasq/runDocker.sh start
+		
+		IP_DNS=$(sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' $DNSMASQ_CONTAINER_NAME)		
+	fi
 
-	OLDIFS=$IFS
-	IFS=',' read -a array <<< "$3"
+	CMD_START="sudo docker run --privileged $1 -d --name $2 --volumes-from $DNSMASQ_CONTAINER_NAME --dns $IP_DNS -v /etc/timezone:/etc/timezone:ro -v /tmp/share:/tmp/share";
 
-	for containerName in "${array[@]}"
-	do
-		isContainerRunning=$(sudo docker ps | grep $containerName)
-		test "x$isContainerRunning" = "x" || CMD_START="$CMD_START --link $containerName:$containerName"
-	done
+	if [ "x$5" == "x" ]; then
+		CMD_START="$CMD_START -h $2"
+	else
+		CMD_START="$CMD_START -h $5"
+	fi
 
-	IFS=$OLDIFS
-
-	CMD_START="$CMD_START $DOCKER_USER/centos6-$4 $5"
+	CMD_START="$CMD_START $DOCKER_USER/centos7-$4 $5"
 
 	sudo $CMD_START;
 	
@@ -48,6 +54,16 @@ function startContainer() {
 function stopContainer() {
 	sudo docker stop $1
 	../cleanup.sh
+}
+
+function statusContainer() {
+	status=$(sudo docker ps | grep $1 2> /dev/null)
+
+	if [ "x$status" == "x" ]; then
+		echo "Container is NOT running"
+	else
+		echo "Container is running"
+	fi
 }
 
 function killContainer() {
@@ -59,15 +75,15 @@ function logContainer() {
 	sudo docker logs -f $1
 }
 
-function sshContainer() {
+function attachContainer() {
 	sudo docker exec -it $1 bash
 }
 
 function bashContainer() {
-	sudo docker run -ti --privileged $1 --rm --name $2 $DOCKER_USER/centos6-$3 /bin/bash
+	sudo docker run -ti --privileged $1 --rm --name $2 $DOCKER_USER/centos7-$3 /bin/bash
 }
 
 function buildImage() {
-	sudo docker build --rm=true --force-rm=true -t $DOCKER_USER/centos6-${1} .
+	sudo docker build --rm=true --force-rm=true -t $DOCKER_USER/centos7-${1} .
 	../cleanup.sh
 }

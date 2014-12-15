@@ -1,1 +1,1 @@
-Here should go `jboss-bpms-installer-6.0.2.GA-redhat-5.jar` and `rhq-enterprise-agent-4.9.0.JON320GA.jar`
+Here should go `jboss-bpms-6.0.3.GA-redhat-1-deployable-eap6.x.zip` and `jboss-eap-6.1.1.zip`

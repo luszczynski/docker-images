@@ -13,14 +13,17 @@ case "$1" in
 	stop)
 		stopContainer $JON_POSTGRES_CONTAINER_NAME
 	;;
+	status)
+		statusContainer $JON_POSTGRES_CONTAINER_NAME
+	;;
 	kill)
 		killContainer $JON_POSTGRES_CONTAINER_NAME
 	;;
 	log)
 		logContainer $JON_POSTGRES_CONTAINER_NAME
 	;;
-	ssh)
-		sshContainer $JON_POSTGRES_CONTAINER_NAME
+	attach)
+		attachContainer) $JON_POSTGRES_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "" $JON_POSTGRES_CONTAINER_NAME $JON_POSTGRES_CONTAINER_NAME

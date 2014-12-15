@@ -17,17 +17,20 @@ case "$1" in
 	stop)
 		stopContainer $KEYCLOAK_CONTAINER_NAME
 	;;
+	status)
+		statusContainer $KEYCLOAK_CONTAINER_NAME
+	;;
 	kill)
 		killContainer $KEYCLOAK_CONTAINER_NAME
 	;;
 	log)
 		logContainer $KEYCLOAK_CONTAINER_NAME
 	;;
-	ssh)
-		sshContainer $KEYCLOAK_CONTAINER_NAME
+	attach)
+		attachContainer) $KEYCLOAK_CONTAINER_NAME
 	;;
 	bash)
-		bashContainer "-p 127.0.0.1:8080:8080" $KEYCLOAK_CONTAINER_NAME $KEYCLOAK_CONTAINER_NAME
+		bashContainer "-p 127.0.0.2:8080:8080" $KEYCLOAK_CONTAINER_NAME $KEYCLOAK_CONTAINER_NAME
 	;;
 	build)
 		buildImage $KEYCLOAK_CONTAINER_NAME

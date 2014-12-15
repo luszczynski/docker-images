@@ -4,22 +4,10 @@
 #                                                                     #
 #######################################################################
 
-FROM luszczynski/centos6:java-version
+FROM luszczynski/centos7:jon-agent
 
-MAINTAINER gluszczy <gluszczy@redhat.com>
+MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 
-ENV INSTALLDIR_JON_AGENT /opt/jboss/jon
-
-RUN mkdir -p $SOFTWARE; mkdir -p $SUPPORT; mkdir -p $INSTALLDIR_JON_AGENT;
-
-############################################
-# Install JON Agent
-############################################
-COPY software/rhq-enterprise-agent-4.12.0.JON330GA.jar $SOFTWARE/
-RUN java -jar $HOME/software/rhq-enterprise-agent-4.12.0.JON330GA.jar --install=$INSTALLDIR_JON_AGENT/
-COPY support/agent-configuration.xml $INSTALLDIR_JON_AGENT/rhq-agent/conf/
-
-# Update the system
 RUN yum install -y postgresql-server postgresql-contrib; yum clean all
 
 RUN \
@@ -32,22 +20,9 @@ RUN \
   echo "listen_addresses='*'" >> /var/lib/pgsql/data/postgresql.conf;\
   su -l postgres -c "pg_ctl -l server.log -w -D /var/lib/pgsql/data stop"
 
-#RUN echo "## performance changes for JBoss ON" >> $PGDATA/postgresql.conf
-#RUN echo "shared_buffers = 80MB #  default is 32MB " >> $PGDATA/postgresql.conf
-#RUN echo "work_mem = 2048 #  default is 1MB" >> $PGDATA/postgresql.conf
-#RUN echo "checkpoint_segments = 10 #  default is 3" >> $PGDATA/postgresql.conf
-
 USER root
-RUN echo "#!/bin/sh" >> $HOME/run.sh && \
-	echo "echo JBoss Postgres Start script" >> $HOME/run.sh && \
-	echo 'sed -i "s/agent_name_script/$(hostname -i)/g" $INSTALLDIR_JON_AGENT/rhq-agent/conf/agent-configuration.xml' >> $HOME/run.sh && \
-	echo 'sed -i "s/agent_ip_script/$(hostname -i)/g" $INSTALLDIR_JON_AGENT/rhq-agent/conf/agent-configuration.xml' >> $HOME/run.sh && \
-	echo 'sed -i "s/server_ip_script/jon-server/g" $INSTALLDIR_JON_AGENT/rhq-agent/conf/agent-configuration.xml' >> $HOME/run.sh && \
-	echo "echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts" >> $HOME/run.sh && \
-	echo "$INSTALLDIR_JON_AGENT/rhq-agent/bin/rhq-agent-wrapper.sh start" >> $HOME/run.sh && \
-	echo "su -l postgres -c 'pg_ctl -l server.log -w -D /var/lib/pgsql/data start; tail -F server.log'" >> $HOME/run.sh && \
-	chmod +x $HOME/run.sh
+RUN echo "su -l postgres -c 'pg_ctl -l server.log -w -D /var/lib/pgsql/data start; tail -F server.log'" >> $HOME/run.sh
 
 EXPOSE 5432
 
-CMD /home/jboss/run.sh
+CMD ["/home/jboss/run.sh"]
