@@ -27,7 +27,7 @@ case "$1" in
 		logContainer $MYSQL_CONTAINER_NAME
 	;;
 	attach)
-		attachContainer) $MYSQL_CONTAINER_NAME
+		attachContainer $MYSQL_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "" $MYSQL_CONTAINER_NAME $MYSQL_CONTAINER_NAME

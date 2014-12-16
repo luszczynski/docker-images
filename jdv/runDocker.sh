@@ -27,7 +27,7 @@ case "$1" in
 		logContainer $JDV_CONTAINER_NAME
 	;;
 	attach)
-		attachContainer) $JDV_CONTAINER_NAME
+		attachContainer $JDV_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "-p 127.0.0.1:9999:9999 -p 127.0.0.1:9990:9990" $JDV_CONTAINER_NAME $JDV_CONTAINER_NAME

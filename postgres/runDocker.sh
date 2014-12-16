@@ -27,7 +27,7 @@ case "$1" in
 		logContainer $POSTGRESQL_CONTAINER_NAME
 	;;
 	attach)
-		attachContainer) $POSTGRESQL_CONTAINER_NAME
+		attachContainer $POSTGRESQL_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "" $POSTGRESQL_CONTAINER_NAME $POSTGRESQL_CONTAINER_NAME

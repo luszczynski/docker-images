@@ -27,7 +27,7 @@ case "$1" in
 		logContainer $2
 	;;
 	attach)
-		attachContainer) $2
+		attachContainer $2
 	;;
 	bash)
 		bashContainer "" $JDG_CONTAINER_NAME $JDG_CONTAINER_NAME

@@ -27,7 +27,7 @@ case "$1" in
 		logContainer $KEYCLOAK_CONTAINER_NAME
 	;;
 	attach)
-		attachContainer) $KEYCLOAK_CONTAINER_NAME
+		attachContainer $KEYCLOAK_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "-p 127.0.0.2:8080:8080" $KEYCLOAK_CONTAINER_NAME $KEYCLOAK_CONTAINER_NAME

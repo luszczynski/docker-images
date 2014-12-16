@@ -27,7 +27,7 @@ case "$1" in
 		logContainer $JON_SERVER_CONTAINER_NAME
 	;;
 	attach)
-		attachContainer) $JON_SERVER_CONTAINER_NAME
+		attachContainer $JON_SERVER_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "-p 127.0.0.1:7080:7080" $JON_SERVER_CONTAINER_NAME $JON_SERVER_CONTAINER_NAME

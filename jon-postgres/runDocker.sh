@@ -23,7 +23,7 @@ case "$1" in
 		logContainer $JON_POSTGRES_CONTAINER_NAME
 	;;
 	attach)
-		attachContainer) $JON_POSTGRES_CONTAINER_NAME
+		attachContainer $JON_POSTGRES_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "" $JON_POSTGRES_CONTAINER_NAME $JON_POSTGRES_CONTAINER_NAME

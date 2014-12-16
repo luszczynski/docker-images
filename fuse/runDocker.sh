@@ -27,7 +27,7 @@ case "$1" in
 		logContainer $FUSE_CONTAINER_NAME
 	;;
 	attach)
-		attachContainer) $FUSE_CONTAINER_NAME
+		attachContainer $FUSE_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "-p 127.0.0.1:8181:8181" $FUSE_CONTAINER_NAME $FUSE_CONTAINER_NAME

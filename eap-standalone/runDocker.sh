@@ -27,7 +27,7 @@ case "$1" in
 		logContainer $STANDALONE_CONTAINER_NAME
 	;;
 	attach)
-		attachContainer) $STANDALONE_CONTAINER_NAME
+		attachContainer $STANDALONE_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "" $STANDALONE_CONTAINER_NAME $STANDALONE_CONTAINER_NAME

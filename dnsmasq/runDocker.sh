@@ -30,7 +30,7 @@ case "$1" in
 		logContainer $DNSMASQ_CONTAINER_NAME
 	;;
 	attach)
-		attachContainer) $DNSMASQ_CONTAINER_NAME
+		attachContainer $DNSMASQ_CONTAINER_NAME
 	;;
 	bash)
 		bashContainer "" $DNSMASQ_CONTAINER_NAME $DNSMASQ_CONTAINER_NAME
