@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+
+spawn /usr/sbin/kadmin.local
+expect "\r"
+send -- "redhat\r"
+expect "Re-enter KDC database master key to verify: "
+send -- "redhat\r"
+send -- "redhat\r"
+send -- "redhat\r"
+expect "\r"
+send -- "exit\r"
+expect eof
