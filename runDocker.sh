@@ -102,7 +102,7 @@ function bashContainer() {
 function buildImage() {
 	PARAM=$1
 
-	[[ $1 != $OS_CONTAINER* ]] || PARAM=$(echo $1 | cut -d "-" -f2)
+	[[ $1 != $OS_CONTAINER* ]] || PARAM=$(echo $1 | cut -d "-" -f2,3)
 
 	docker build --rm=true --force-rm=true -t $DOCKER_USER/$OS_CONTAINER-$PARAM $2
 	cleanup
