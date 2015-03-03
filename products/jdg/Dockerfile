@@ -2,16 +2,9 @@ FROM luszczynski/centos7-jon-agent
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 
-############################################
-# Set environment variables
-############################################
-ENV JDG_ZIP_NAME jboss-datagrid-6.3.2-server.zip
+ENV JDG_ZIP_NAME jboss-datagrid-6.4.0-server.zip
 ENV INSTALLDIR_JDG /opt/jboss/jdg
-ENV JDG_HOME $INSTALLDIR_JDG/jboss-datagrid-6.3.2-server
-
-############################################
-# Install JBoss JDG
-############################################
+ENV JDG_HOME $INSTALLDIR_JDG/jboss-datagrid-6.4.0-server
 
 RUN mkdir -p $INSTALLDIR_JDG && \
 	chown -R jboss.jboss $INSTALLDIR_JDG
@@ -20,7 +13,7 @@ USER jboss
 
 COPY software/$JDG_ZIP_NAME $SOFTWARE/
 
-RUN unzip $HOME/software/$JDG_ZIP_NAME -d $INSTALLDIR_JDG/
+RUN unzip $SOFTWARE/$JDG_ZIP_NAME -d $INSTALLDIR_JDG/
 
 COPY support/*.properties $JDG_HOME/standalone/configuration/
 COPY support/clustered.xml $JDG_HOME/standalone/configuration/

@@ -5,7 +5,7 @@ MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 ENV INSTALLDIR_JON_AGENT=/opt/jboss/jon JON_AGENT_HOME=$INSTALLDIR_JON_AGENT/rhq-agent
 
 COPY software/rhq-enterprise-agent-4.12.0.JON330GA.jar $SOFTWARE/
-RUN mkdir -p $INSTALLDIR_JON_AGENT && java -jar $HOME/software/rhq-enterprise-agent-4.12.0.JON330GA.jar --install=$INSTALLDIR_JON_AGENT/
+RUN mkdir -p $INSTALLDIR_JON_AGENT && java -jar $SOFTWARE/rhq-enterprise-agent-4.12.0.JON330GA.jar --install=$INSTALLDIR_JON_AGENT/
 COPY support/agent-configuration.xml $JON_AGENT_HOME/conf/
 
 RUN echo 'sed -i "s/agent_name_script/$(hostname)/g" $JON_AGENT_HOME/conf/agent-configuration.xml' >> $HOME/run.sh && \
