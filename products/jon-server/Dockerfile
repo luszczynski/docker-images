@@ -1,4 +1,4 @@
-FROM luszczynski/centos7-java-version
+FROM luszczynski/centos7-java
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 
@@ -11,4 +11,4 @@ RUN chmod +x $SUPPORT/rhq-nodb-deploy.sh
 
 EXPOSE 7080
 
-CMD ["$SUPPORT/rhq-nodb-deploy.sh"]
+CMD ["/home/jboss/support/rhq-nodb-deploy.sh"]

@@ -2,7 +2,7 @@
 # Credit: https://github.com/shipyard/shipyard-deploy/
 # See also: https://github.com/vnugent/rhq-psql-docker
 echo "Setup starting ..."
-echo "$(hostname -i | cut -d " " -f2) $(hostname)" > /dnsmasq.hosts/0host_$(hostname)
+echo "$(hostname -I) $(hostname)" > /dnsmasq.hosts/0host_$(hostname)
 mkdir -p /opt/jboss/jon/
 unzip -q -d /opt/jboss/jon $SOFTWARE/jon-server-3.3.0.GA.zip
 DB_SERVER=jon-postgres
