@@ -1,9 +1,15 @@
-# Use the centos base image
 FROM centos:centos7
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 
-RUN yum -y update; yum -y install unzip sudo vim xterm net-tools openssh-server; yum clean all
+ENV TERM=xterm HOME=/home/jboss SUPPORT=$HOME/support SOFTWARE=$HOME/software MAVEN_VERSION=3.2.5 M2_HOME=$HOME/.m2
+
+RUN yum -y update; yum -y install unzip sudo vim xterm net-tools openssh-server wget git; yum clean all
+
+RUN curl -sSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar 	xzf - -C /usr/share && \
+	mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven && \
+	ln -s /usr/share/maven/bin/mvn /usr/bin/mvn && \
+	chown -R jboss. M2_HOME
 
 # Increase ulimit
 RUN echo "* soft nofile 4096" >> /etc/security/limits.conf && \
@@ -13,16 +19,8 @@ RUN alias ls="ls --color" && \
 	alias grep="grep --color=auto" && \
 	alias ll="ls -l --color=auto"
 
-ENV TERM xterm
-ENV HOME /home/jboss
-ENV SUPPORT $HOME/support
-ENV SOFTWARE $HOME/software
-
 VOLUME /dnsmasq.hosts
 
-############################################
-# Creating user jboss
-############################################
 RUN echo '%jboss ALL=(ALL) ALL' >> /etc/sudoers && \
 	useradd -m -d /home/jboss -p jboss jboss  && \
 	echo 'root:redhat' | chpasswd && \

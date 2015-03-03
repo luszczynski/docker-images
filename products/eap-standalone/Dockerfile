@@ -2,9 +2,6 @@ FROM luszczynski/centos7-jon-agent
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 
-############################################
-# Set environment variables
-############################################
 ENV EAP_PATCH_NAME jboss-eap-6.3.2-patch.zip
 ENV EAP_ZIP_NAME jboss-eap-6.3.0.zip
 ENV INSTALLDIR_EAP /opt/jboss/eap
@@ -15,8 +12,7 @@ RUN mkdir -p $INSTALLDIR_EAP && \
 
 USER jboss
 
-COPY software/$EAP_ZIP_NAME $HOME/software/
-COPY software/$EAP_PATCH_NAME $HOME/software/
+COPY software/$EAP_ZIP_NAME software/$EAP_PATCH_NAME $HOME/software/
 
 RUN unzip $HOME/software/$EAP_ZIP_NAME -d $INSTALLDIR_EAP
 

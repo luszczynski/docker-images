@@ -2,12 +2,8 @@ FROM luszczynski/centos7-java
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 
-ENV INSTALLDIR_JON_AGENT /opt/jboss/jon
-ENV JON_AGENT_HOME $INSTALLDIR_JON_AGENT/rhq-agent
+ENV INSTALLDIR_JON_AGENT=/opt/jboss/jon JON_AGENT_HOME=$INSTALLDIR_JON_AGENT/rhq-agent
 
-############################################
-# Install JON Agent
-############################################
 COPY software/rhq-enterprise-agent-4.12.0.JON330GA.jar $SOFTWARE/
 RUN mkdir -p $INSTALLDIR_JON_AGENT && java -jar $HOME/software/rhq-enterprise-agent-4.12.0.JON330GA.jar --install=$INSTALLDIR_JON_AGENT/
 COPY support/agent-configuration.xml $JON_AGENT_HOME/conf/

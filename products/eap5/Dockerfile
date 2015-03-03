@@ -22,6 +22,6 @@ RUN echo 'runuser -l jboss -c "$EAP_HOME/bin/run.sh -b $MYIP "' >> $HOME/run.sh
 RUN rm -rf $SUPPORT && \
 	rm -rf $SOFTWARE
 
-EXPOSE 8080 9990 9999
+EXPOSE 8080
 
 CMD ["/home/jboss/run.sh"]

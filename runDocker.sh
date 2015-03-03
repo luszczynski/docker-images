@@ -7,7 +7,14 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-. ./docker.sh
+# dnsmasq container name
+DNSMASQ_CONTAINER_NAME="dnsmasq"
+
+# docker user
+DOCKER_USER="luszczynski"
+
+# Container Operation System
+OS_CONTAINER="centos7"
 
 
 function cleanup() {
@@ -102,10 +109,13 @@ function bashContainer() {
 function buildImage() {
 	PARAM=$1
 
-	[[ $1 != $OS_CONTAINER* ]] || PARAM=$(echo $1 | cut -d "-" -f2)
+	[[ $1 != $OS_CONTAINER* ]] || PARAM=$(echo $1 | cut -d "-" -f2,3,4,5)
 
 	docker build --rm=true --force-rm=true -t $DOCKER_USER/$OS_CONTAINER-$PARAM $2
-	cleanup
+
+	if [ "$?" == 0 ]; then
+		cleanup
+	fi
 }
 
 function buildAll() {
@@ -178,9 +188,6 @@ if [ "$#" == 0 ] ; then
 	usage
 	exit 1
 fi
-
-# Container Operation System
-OS_CONTAINER="centos7"
 
 # Path to container
 CONTAINER_DIR=$(find . -name "$2" | sed 's/.\///')

@@ -3,6 +3,7 @@ FROM luszczynski/centos7-jon-agent
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 
 ENV INSTALLDIR_BPMS /opt/jboss/bpms
+ENV BPMS_HOME $INSTALLDIR_BPMS/jboss-eap-6.1
 
 RUN mkdir -p $INSTALLDIR_BPMS;
 
