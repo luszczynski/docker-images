@@ -4,10 +4,11 @@ MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 
 USER root
 
-COPY software/*.zip $SOFTWARE/
-COPY support/rhq-nodb-deploy.sh $SUPPORT/
+COPY software/* $SOFTWARE/
+COPY software/patch/* $SOFTWARE/patch/
+COPY support/*.sh $SUPPORT/
 
-RUN chmod +x $SUPPORT/rhq-nodb-deploy.sh
+RUN chmod +x $SUPPORT/*.sh
 
 EXPOSE 7080
 
