@@ -1,0 +1,68 @@
+dnsmasq:
+  image: luszczynski/centos7-dnsmasq
+  ports:
+   - "53:53"
+  volumes:
+   - /etc/timezone:/etc/timezone:ro
+   - /tmp/share:/tmp/share
+  privileged: true
+  hostname: dnsmasq
+  dns:
+  - 127.0.0.1
+  - 8.8.8.8 
+jonpostgres:
+  image: luszczynski/centos7-jon-postgres
+  volumes_from:
+   - dnsmasq
+  volumes:
+   - /etc/timezone:/etc/timezone:ro
+   - /tmp/share:/tmp/share
+  privileged: true
+  hostname: jon-postgres
+  links:
+   - dnsmasq
+  dns:
+  - dnsmasq
+  - 8.8.8.8 
+jonserver:
+  image: luszczynski/centos7-jon-server
+  volumes_from:
+   - dnsmasq
+  volumes:
+   - /etc/timezone:/etc/timezone:ro
+   - /tmp/share:/tmp/share
+  privileged: true
+  hostname: jon-server
+  links:
+   - dnsmasq
+  dns:
+  - dnsmasq
+  - 8.8.8.8 
+apache:
+  image: luszczynski/centos7-apache
+  volumes_from:
+   - dnsmasq
+  volumes:
+   - /etc/timezone:/etc/timezone:ro
+   - /tmp/share:/tmp/share
+  privileged: true
+  hostname: apache
+  links:
+   - dnsmasq
+  dns:
+  - dnsmasq
+  - 8.8.8.8 
+eapstandalone:
+  image: luszczynski/centos7-eap-standalone
+  volumes_from:
+   - dnsmasq
+  volumes:
+   - /etc/timezone:/etc/timezone:ro
+   - /tmp/share:/tmp/share
+  privileged: true
+  hostname: eap-standalone
+  links:
+   - dnsmasq
+  dns:
+  - dnsmasq
+  - 8.8.8.8

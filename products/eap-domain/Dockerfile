@@ -5,10 +5,10 @@ MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
 ############################################
 # Set environment variables
 ############################################
-ENV EAP_PATCH_NAME jboss-eap-6.3.3-patch.zip
-ENV EAP_ZIP_NAME jboss-eap-6.3.0.zip
+#ENV EAP_PATCH_NAME jboss-eap-6.3.3-patch.zip
+ENV EAP_ZIP_NAME jboss-eap-6.4.0.zip
 ENV INSTALLDIR_EAP /opt/jboss/eap
-ENV EAP_HOME $INSTALLDIR_EAP/jboss-eap-6.3
+ENV EAP_HOME $INSTALLDIR_EAP/jboss-eap-6.4
 
 ############################################
 # Install JBoss EAP
@@ -26,7 +26,7 @@ RUN unzip $HOME/software/$EAP_ZIP_NAME -d $INSTALLDIR_EAP/
 COPY support/*.properties $EAP_HOME/domain/configuration/
 COPY support/*.xml $EAP_HOME/domain/configuration/
 
-RUN $EAP_HOME/bin/jboss-cli.sh --user=admin --password=redhat@123 --controller=localhost "patch apply $SOFTWARE/$EAP_PATCH_NAME"
+#RUN $EAP_HOME/bin/jboss-cli.sh --user=admin --password=redhat@123 --controller=localhost "patch apply $SOFTWARE/$EAP_PATCH_NAME"
 
 USER root
 RUN echo 'runuser -l jboss -c "$EAP_HOME/bin/domain.sh -b $MYIP -bmanagement $MYIP -bunsecure $MYIP --host-config=host-master.xml"' >> $HOME/run.sh

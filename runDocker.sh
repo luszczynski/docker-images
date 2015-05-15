@@ -32,8 +32,8 @@ function startContainer() {
 	cleanup 1> /dev/null
 
 	IP_DNS=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $DNSMASQ_CONTAINER_NAME 2> /dev/null)
-
-	if [ "x$IP_DNS" == "x" ]; then
+	
+        if [ "x$IP_DNS" == "x" ]; then
 		echo "dnsmasq not started. Starting now..."
 		docker run --privileged -d --name $DNSMASQ_CONTAINER_NAME -h $DNSMASQ_CONTAINER_NAME $DOCKER_USER/$OS_CONTAINER-$DNSMASQ_CONTAINER_NAME 2> /dev/null
 		IP_DNS=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $DNSMASQ_CONTAINER_NAME)
@@ -50,7 +50,7 @@ function startContainer() {
 	fi
 
 	CMD_START="$CMD_START $DOCKER_USER/$OS_CONTAINER-$3 $4"
-
+#read
 	$CMD_START;
 	
 }
