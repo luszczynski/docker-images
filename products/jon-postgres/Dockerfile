@@ -1,22 +1,21 @@
-#FROM luszczynski/centos7-jon-agent
-FROM rsoares/centos7-jon-agent-experiments
+FROM docker.io/centos/postgresql
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
-RUN yum install -y postgresql-server postgresql-contrib; yum clean all
+# install the JRE to run RHQ Agent
+RUN yum install -y java-1.7.0-openjdk; yum clean all
 
-RUN \
-  su -l postgres -c "/usr/bin/initdb -D '/var/lib/pgsql/data' --auth='ident'" >> /var/lib/pgsql/initdb.log 2>&1 < /dev/null;\
-  sed -i 's/ident/trust/g'  /var/lib/pgsql/data/pg_hba.conf;\
-  su -l postgres -c "pg_ctl -l server.log -w -D /var/lib/pgsql/data start";\
-  psql -h 127.0.0.1 -p 5432 -U postgres --command="CREATE USER rhqadmin WITH password 'rhqadmin'";\
-  createdb -h 127.0.0.1 -p 5432 -U postgres -O rhqadmin rhq;\
-  echo "host all  all    0.0.0.0/0  md5" >> /var/lib/pgsql/data/pg_hba.conf;\  
-  echo "listen_addresses='*'" >> /var/lib/pgsql/data/postgresql.conf;\
-  su -l postgres -c "pg_ctl -l server.log -w -D /var/lib/pgsql/data stop"
+ENV SOFTWARE_INSTALL_DIR /opt/redhat
+ENV JAVA_HOME /usr/lib/jvm/jre
 
-RUN echo "su -l postgres -c 'pg_ctl -l server.log -w -D /var/lib/pgsql/data start; tail -F server.log'" >> $HOME/run.sh
+# install the RHQ/JON Agent to monitor the Postgres instance inside the container
+COPY software/rhq-enterprise-agent-*.jar /tmp/
+RUN java -jar /tmp/rhq-enterprise-agent-*.jar --install=$SOFTWARE_INSTALL_DIR
+RUN rm /tmp/rhq-enterprise-agent-*.jar
 
-EXPOSE 5432
+COPY support/*.sh /
 
-CMD ["/home/jboss/run.sh"]
+# RHQ Agent TCP port
+EXPOSE 16163
+
+ENTRYPOINT ["/run.sh"]

@@ -1,9 +1,10 @@
-FROM luszczynski/centos7-jon-agent
+#FROM luszczynski/centos7-jon-agent
+FROM rsoares/centos7-jon-agent-experiments
 
-MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
+MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
-ENV EAP_ZIP_NAME jboss-eap-6.4.0.zip
-ENV INSTALL_DIR_EAP /opt/jboss/eap
+ENV EAP_VERSION=6.4.0
+ENV EAP_ZIP_NAME jboss-eap-$EAP_VERSION.zip
 ENV EAP_HOME $INSTALLDIR_EAP/jboss-eap-6.4
 ENV JON_MODULE_ZIP1_NAME rhq-rtfilter-module.zip
 ENV JON_MODULE_ZIP2_NAME rhq-rtfilter-subsystem-module.zip

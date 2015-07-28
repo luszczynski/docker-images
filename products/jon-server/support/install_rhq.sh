@@ -1,12 +1,10 @@
 #!/bin/bash
-# Credit: https://github.com/shipyard/shipyard-deploy/
-# See also: https://github.com/vnugent/rhq-psql-docker
 echo "Setup starting ..."
 
 unzip -q /tmp/jon-server-*.zip -d $SOFTWARE_INSTALL_DIR
 DB_SERVER=jon-postgres
 DB_PORT=5432
-RHQ_SERVER_HOME=$SOFTWARE_INSTALL_DIR/jon-server-3.3.0.GA
+RHQ_SERVER_HOME=$SOFTWARE_INSTALL_DIR/jon-server-$JON_SERVER_VERSION
 
 echo "Configuring RHQ/JON Server to use '$DB_SERVER' database server instead of localhost"
 conn_url="s;^#\?rhq\.server\.database\.connection\-url=jdbc:postgresql.*$;rhq.server.database.connection-url=jdbc:postgresql://${DB_SERVER}:$DB_PORT/rhq;"

@@ -3,7 +3,8 @@ FROM rsoares/centos7-jon-agent-experiments
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
-ENV HTTPD_HOME=$SOFTWARE_INSTALL_DIR/jboss-ews-2.1/httpd
+ENV EWS_VERSION=2.1
+ENV HTTPD_HOME=$SOFTWARE_INSTALL_DIR/jboss-ews-$EWS_VERSION/httpd
 
 RUN yum install -y apr-util mailcap openssl; yum clean all
 
@@ -25,11 +26,16 @@ COPY support/snmpd.conf $HTTPD_HOME/conf/
 COPY support/mod_cluster.conf $HTTPD_HOME/conf.d/
 COPY support/run.sh /
 
+# copy the jboss-eap native httpd modules
 RUN cp $SOFTWARE_INSTALL_DIR/jboss-eap-*/modules/system/layers/base/native/lib64/httpd/modules/*.so \
 	$HTTPD_HOME/modules/
 
 WORKDIR $HTTPD_HOME
-RUN . ./.postinstall; chown -R apache: $HTTPD_HOME; rm -r $SOFTWARE_INSTALL_DIR/jboss-eap-*
+
+# run the EWS's post installation script
+RUN . ./.postinstall; \
+	chown -R apache: $HTTPD_HOME; \
+	rm -r $SOFTWARE_INSTALL_DIR/jboss-eap-*
 
 RUN rm -rf /tmp/jboss*; rm -rf /tmp/rhq*
 

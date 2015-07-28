@@ -2,7 +2,7 @@
 
 DB_SERVER=jon-postgres
 DB_PORT=5432
-RHQ_SERVER_HOME=$SOFTWARE_INSTALL_DIR/jon-server-3.3.0.GA
+RHQ_SERVER_HOME=$SOFTWARE_INSTALL_DIR/jon-server-$JON_VERSION
 
 # call the runtime setup
 . /runtime_setup.sh

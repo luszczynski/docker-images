@@ -8,6 +8,7 @@ ENV TERM=xterm SOFTWARE_INSTALL_DIR=/opt/redhat
 
 RUN mkdir -p $SOFTWARE_INSTALL_DIR
 VOLUME /dnsmasq.hosts
+RUN chmod a+w /dnsmasq.hosts
 
 COPY support/*.sh /
 
@@ -20,6 +21,10 @@ CMD ["/bin/cat", "/etc/redhat-release"]
 ###################
 # from Dockerfile reference manual...
 # https://docs.docker.com/reference/builder/
+# https://docs.docker.com/articles/dockerfile_best-practices/
+#
+# The best use for ENTRYPOINT is to set the image’s main command, 
+# allowing that image to be run as though it was that command (and then use CMD as the default flags).
 
 # Command line arguments to docker run <image> will be appended after all elements 
 # in an exec form ENTRYPOINT, and will override all elements specified using CMD. 

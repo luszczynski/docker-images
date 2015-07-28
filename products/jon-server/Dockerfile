@@ -3,6 +3,8 @@ FROM rsoares/centos7-java-experiments
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
+ENV JON_VERSION=3.3.0.GA
+
 COPY software/*.zip /tmp/
 COPY software/patch/* /tmp/patch/
 COPY support/*.sh /
