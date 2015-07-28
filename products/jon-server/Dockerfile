@@ -1,15 +1,14 @@
-FROM luszczynski/centos7-java
+FROM rsoares/centos7-java-experiments
+#FROM luszczynski/centos7-java
 
-MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
+MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
-USER root
+COPY software/*.zip /tmp/
+COPY software/patch/* /tmp/patch/
+COPY support/*.sh /
 
-COPY software/* $SOFTWARE/
-COPY software/patch/* $SOFTWARE/patch/
-COPY support/*.sh $SUPPORT/
-
-RUN chmod +x $SUPPORT/*.sh
+RUN /install_rhq.sh
 
 EXPOSE 7080
 
-CMD ["/home/jboss/support/rhq-nodb-deploy.sh"]
+ENTRYPOINT ["/run.sh"]

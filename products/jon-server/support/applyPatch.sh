@@ -1,7 +1,7 @@
 #!/bin/bash
 
-RHQ_SERVER_HOME="/opt/jboss/jon/jon-server-3.3.0.GA"
-PATCH_DIR="$SOFTWARE/patch"
+RHQ_SERVER_HOME="$SOFTWARE_INSTALL_DIR/jon-server-3.3.0.GA"
+PATCH_DIR="/tmp/patch"
 PATCH_NAME_PATTERN="jon-server-*update*.zip"
 
 if [ -d "$PATCH_DIR" ]; then 
@@ -24,4 +24,3 @@ if [ -d "$PATCH_DIR" ]; then
    rm -rf $PATCH_DIR
 
 fi
-

@@ -1,0 +1,278 @@
+Wed Jul 22 17:23:57 BRT 2015: 
+============================================
+RHQ Agent Update Binary Version Information:
+============================================
+rhq-agent.latest.version=4.12.0.JON330GA
+rhq-agent.latest.build-number=e347f77
+======================================
+ANT target [(default)]
+Wed Jul 22 17:24:06 BRT 2015
+======================================
+Setting project property: rhq.agent.update.jar-file -> /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-enterprise-agent-4.12.0.JON330GA.jar
+Setting project property: rhq.agent.update.install-agent-dir -> .
+Setting project property: rhq.agent.update.launch-script-dir -> /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/./rhq-agent/bin
+Setting project property: rhq-agent.latest.version -> 4.12.0.JON330GA
+Setting project property: rhq.agent.update.log-dir -> .
+Setting project property: rhq-agent.latest.build-number -> e347f77
+Setting project property: rhq.agent.update.install-flag -> true
+ +Datatype copy-with-backup org.rhq.enterprise.agent.update.CopyWithBackup
+ +Datatype migrate-agent-preferences org.rhq.enterprise.agent.update.MigrateAgentPreferences
+Adding reference: ant.parsing.context
+Adding reference: ant.targets
+parsing buildfile jar:file:/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-enterprise-agent-4.12.0.JON330GA.jar!/rhq-agent-update-build.xml with URI = jar:file:/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-enterprise-agent-4.12.0.JON330GA.jar!/rhq-agent-update-build.xml
+Setting ro project property: ant.project.name -> rhq-agent-update
+Adding reference: rhq-agent-update
+Project base dir set to: /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software
+ +Target: 
+ +Target: backup-agent
+ +Target: restore-agent
+ +Target: start
+ +Target: install
+ +Target: update
+ +Target: verify
+ +Target: header
+ +Target: header-for-update
+ +Target: header-for-install
+ +Target: launch-agent
+ +Target: launch-agent-windows
+ +Target: launch-agent-windows-service
+ +Target: launch-agent-windows-console
+ +Target: launch-agent-unix
+ +Target: process-exit-code
+ +Target: process-exit-code-windows-service
+ +Target: process-exit-code-windows-console
+ +Target: process-exit-code-unix
+[] [condition] 
+[antlib:org.apache.tools.ant] Could not load definitions from resource org/apache/tools/ant/antlib.xml. It could not be found.
+Condition false; not setting iswindows
+[] [condition] 
+Build sequence for target(s) `start' is [header-for-update, header-for-install, header, verify, install, update, start]
+Complete build sequence is [header-for-update, header-for-install, header, verify, install, update, start, launch-agent-windows-service, launch-agent-windows-console, launch-agent-windows, launch-agent-unix, process-exit-code-windows-service, process-exit-code-windows-console, process-exit-code-unix, process-exit-code, launch-agent, backup-agent, restore-agent, ]
+[header-for-update] 
+[header-for-update] Skipped because property 'rhq.agent.update.update-flag' not set.
+[header-for-update] 
+[header-for-install] 
+[header-for-install] [echo] 
+[header-for-install] [echo] 
+===== RHQ AGENT INSTALL =====
+Installing Agent To: .
+Version: 4.12.0.JON330GA
+Build Number: e347f77
+Jar File: /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-enterprise-agent-4.12.0.JON330GA.jar
+[header-for-install] [echo] 
+[header-for-install] 
+[header] 
+[header] 
+[verify] 
+[verify] [fail] 
+[available] Found: rhq-enterprise-agent-4.12.0.JON330GA.jar
+[verify] [fail] 
+[verify] 
+[install] 
+[install] [echo] 
+[install] [echo] Extract the agent distro zip from the agent update binary
+[install] [echo] 
+[install] [unjar] 
+[install] [unjar] Expanding: /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-enterprise-agent-4.12.0.JON330GA.jar into /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software
+[install] [unjar] expanding rhq-enterprise-agent-4.12.0.JON330GA.zip to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-enterprise-agent-4.12.0.JON330GA.zip
+[install] [unjar] expand complete
+[install] [unjar] 
+[install] [echo] 
+[install] [echo] Unzip the agent distro into the new installation directory
+[install] [echo] 
+[install] [unzip] 
+[install] [unzip] Expanding: /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-enterprise-agent-4.12.0.JON330GA.zip into /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software
+[install] [unzip] expanding rhq-agent/plugins/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/plugins
+[install] [unzip] expanding rhq-agent/lib/sigar-amd64-winnt.dll to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/sigar-amd64-winnt.dll
+[install] [unzip] expanding rhq-agent/bin/standalone-pc.sh to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/standalone-pc.sh
+[install] [unzip] expanding rhq-agent/bin/standalone-pc.bat to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/standalone-pc.bat
+[install] [unzip] expanding rhq-agent/conf/log4j.xml to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/conf/log4j.xml
+[install] [unzip] expanding rhq-agent/lib/sigar-x86-winnt.dll to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/sigar-x86-winnt.dll
+[install] [unzip] expanding rhq-agent/lib/libsigar-amd64-freebsd-6.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-amd64-freebsd-6.so
+[install] [unzip] expanding rhq-agent/lib/libsigar-pa-hpux-11.sl to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-pa-hpux-11.sl
+[install] [unzip] expanding rhq-agent/bin/wrapper/windows-x86_64/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/windows-x86_64
+[install] [unzip] expanding rhq-agent/bin/wrapper/rhq-agent-wrapper.conf to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/rhq-agent-wrapper.conf
+[install] [unzip] expanding rhq-agent/lib/sigar-1.6.5.132-6.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/sigar-1.6.5.132-6.jar
+[install] [unzip] expanding rhq-agent/lib/rhq-enterprise-agent-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-enterprise-agent-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/lib/jboss-serialization-1.0.3.GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/jboss-serialization-1.0.3.GA.jar
+[install] [unzip] expanding rhq-agent/conf/agent-configuration.xml to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/conf/agent-configuration.xml
+[install] [unzip] expanding rhq-agent/lib/augeas/lib64/libaugeas.so.0 to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib64/libaugeas.so.0
+[install] [unzip] expanding rhq-agent/bin/wrapper/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper
+[install] [unzip] expanding rhq-agent/lib/rhq-core-client-api-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-core-client-api-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/lib/log4j-1.2.16.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/log4j-1.2.16.jar
+[install] [unzip] expanding rhq-agent/lib/jboss-common-core-2.2.17.GA-redhat-2.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/jboss-common-core-2.2.17.GA-redhat-2.jar
+[install] [unzip] expanding rhq-agent/lib/libsigar-universal-macosx.dylib to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-universal-macosx.dylib
+[install] [unzip] expanding rhq-agent/lib/endorsed/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/endorsed
+[install] [unzip] expanding rhq-agent/lib/augeas/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas
+[install] [unzip] expanding rhq-agent/lib/augeas/lib64/libfa.so.1 to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib64/libfa.so.1
+[install] [unzip] expanding rhq-agent/lib/rhq-core-comm-api-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-core-comm-api-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/lib/jboss-jmx-4.2.3.GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/jboss-jmx-4.2.3.GA.jar
+[install] [unzip] expanding rhq-agent/bin/wrapper/windows-x86_32/wrapper.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/windows-x86_32/wrapper.jar
+[install] [unzip] expanding rhq-agent/bin/rhq-agent-wrapper.sh to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent-wrapper.sh
+[install] [unzip] expanding rhq-agent/bin/wrapper/windows-x86_32/wrapper.exe to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/windows-x86_32/wrapper.exe
+[install] [unzip] expanding rhq-agent/lib/libsigar-amd64-linux.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-amd64-linux.so
+[install] [unzip] expanding rhq-agent/lib/i18nlog-1.0.10.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/i18nlog-1.0.10.jar
+[install] [unzip] expanding rhq-agent/lib/libsigar-ia64-hpux-11.sl to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-ia64-hpux-11.sl
+[install] [unzip] expanding rhq-agent/lib/rhq-core-util-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-core-util-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/lib/libsigar-sparc64-solaris.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-sparc64-solaris.so
+[install] [unzip] expanding rhq-agent/lib/commons-logging-1.1.0.jboss.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/commons-logging-1.1.0.jboss.jar
+[install] [unzip] expanding rhq-agent/lib/libsigar-sparc-solaris.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-sparc-solaris.so
+[install] [unzip] expanding rhq-agent/lib/picketbox-4.0.19.SP8-redhat-1.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/picketbox-4.0.19.SP8-redhat-1.jar
+[install] [unzip] expanding rhq-agent/lib/jline-0.9.94.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/jline-0.9.94.jar
+[install] [unzip] expanding rhq-agent/lib/jboss-remoting-2.5.4.SP5.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/jboss-remoting-2.5.4.SP5.jar
+[install] [unzip] expanding rhq-agent/bin/wrapper/windows-x86_64/wrapper.dll to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/windows-x86_64/wrapper.dll
+[install] [unzip] expanding rhq-agent/lib/augeas/lib/libfa.so.1.3.4 to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib/libfa.so.1.3.4
+[install] [unzip] expanding rhq-agent/lib/libsigar-x86-linux.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-x86-linux.so
+[install] [unzip] expanding rhq-agent/lib/libsigar-x86-freebsd-5.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-x86-freebsd-5.so
+[install] [unzip] expanding rhq-agent/lib/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib
+[install] [unzip] expanding rhq-agent/lib/augeas/lib/libfa.so.1 to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib/libfa.so.1
+[install] [unzip] expanding rhq-agent/bin/wrapper/rhq-agent-wrapper.inc to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/rhq-agent-wrapper.inc
+[install] [unzip] expanding rhq-agent/lib/libsigar-arm-linux.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-arm-linux.so
+[install] [unzip] expanding rhq-agent/lib/libsigar-s390x-linux.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-s390x-linux.so
+[install] [unzip] expanding rhq-agent/lib/libsigar-ppc64-linux.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-ppc64-linux.so
+[install] [unzip] expanding rhq-agent/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent
+[install] [unzip] expanding rhq-agent/bin/rhq-agent.bat to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent.bat
+[install] [unzip] expanding rhq-agent/lib/libsigar-ppc64-aix-5.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-ppc64-aix-5.so
+[install] [unzip] expanding rhq-agent/conf/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/conf
+[install] [unzip] expanding rhq-agent/lib/jboss-logging-3.1.4.GA-redhat-1.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/jboss-logging-3.1.4.GA-redhat-1.jar
+[install] [unzip] expanding rhq-agent/bin/rhq-agent-env.sh to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent-env.sh
+[install] [unzip] expanding rhq-agent/lib/rhq-core-plugin-container-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-core-plugin-container-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/lib/rhq-enterprise-comm-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-enterprise-comm-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/lib/rhq-common-drift-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-common-drift-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/lib/libsigar-ia64-linux.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-ia64-linux.so
+[install] [unzip] expanding rhq-agent/lib/endorsed/jaxb-impl-2.2.4.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/endorsed/jaxb-impl-2.2.4.jar
+[install] [unzip] expanding rhq-agent/lib/augeas/lib64/libfa.so.1.3.4 to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib64/libfa.so.1.3.4
+[install] [unzip] expanding rhq-agent/lib/augeas/lib64/libaugeas.so.0.14.0 to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib64/libaugeas.so.0.14.0
+[install] [unzip] expanding rhq-agent/lib/concurrent-1.3.4-jboss-update1.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/concurrent-1.3.4-jboss-update1.jar
+[install] [unzip] expanding rhq-agent/lib/trove4j-3.0.3.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/trove4j-3.0.3.jar
+[install] [unzip] expanding rhq-agent/lib/persistence-api-1.0.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/persistence-api-1.0.jar
+[install] [unzip] expanding rhq-agent/bin/plugin-validator.sh to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/plugin-validator.sh
+[install] [unzip] expanding rhq-agent/lib/rhq-core-domain-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-core-domain-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/bin/wrapper/windows-x86_64/wrapper.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/windows-x86_64/wrapper.jar
+[install] [unzip] expanding rhq-agent/lib/libsigar-amd64-solaris.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-amd64-solaris.so
+[install] [unzip] expanding rhq-agent/lib/endorsed/activation-1.1.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/endorsed/activation-1.1.jar
+[install] [unzip] expanding rhq-agent/lib/libsigar-ppc-linux.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-ppc-linux.so
+[install] [unzip] expanding rhq-agent/lib/libsigar-universal64-macosx.dylib to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-universal64-macosx.dylib
+[install] [unzip] expanding rhq-agent/bin/wrapper/windows-x86_64/wrapper.exe to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/windows-x86_64/wrapper.exe
+[install] [unzip] expanding rhq-agent/bin/rhq-agent.sh to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent.sh
+[install] [unzip] expanding rhq-agent/bin/wrapper/windows-x86_32/wrapper.dll to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/windows-x86_32/wrapper.dll
+[install] [unzip] expanding rhq-agent/lib/augeas/lib/libaugeas.so.0 to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib/libaugeas.so.0
+[install] [unzip] expanding rhq-agent/bin/wrapper/windows-x86_32/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/wrapper/windows-x86_32
+[install] [unzip] expanding rhq-agent/lib/libsigar-x86-freebsd-6.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-x86-freebsd-6.so
+[install] [unzip] expanding rhq-agent/lib/libsigar-x86-solaris.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-x86-solaris.so
+[install] [unzip] expanding rhq-agent/lib/augeas/lib64/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib64
+[install] [unzip] expanding rhq-agent/lib/augeas/lib/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib
+[install] [unzip] expanding rhq-agent/bin/rhq-agent-env.bat to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent-env.bat
+[install] [unzip] expanding rhq-agent/lib/libsigar-ppc-aix-5.so to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-ppc-aix-5.so
+[install] [unzip] expanding rhq-agent/lib/augeas/lib/libaugeas.so.0.14.0 to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/augeas/lib/libaugeas.so.0.14.0
+[install] [unzip] expanding rhq-agent/lib/commons-io-1.4.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/commons-io-1.4.jar
+[install] [unzip] expanding rhq-agent/lib/java-getopt-1.0.13.redhat-4.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/java-getopt-1.0.13.redhat-4.jar
+[install] [unzip] expanding rhq-agent/lib/rhq-core-native-system-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-core-native-system-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/lib/rhq-core-plugin-api-4.12.0.JON330GA.jar to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/rhq-core-plugin-api-4.12.0.JON330GA.jar
+[install] [unzip] expanding rhq-agent/bin/rhq-agent-wrapper.bat to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent-wrapper.bat
+[install] [unzip] expanding rhq-agent/bin/ to /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin
+[install] [unzip] expand complete
+[install] [unzip] 
+[install] [echo] 
+[install] [echo] chmod +x on executables under ./rhq-agent
+[install] [echo] 
+[install] [chmod] 
+[install] [chmod] Current OS is Linux
+fileset: Setup scanner in dir /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/conf with patternSet{ includes: [agent-configuration.xml] excludes: [] }
+[install] [chmod] Executing 'chmod' with arguments:
+'640'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/conf/agent-configuration.xml'
+
+The ' characters around the executable and arguments are
+not part of the command.
+Execute:Java13CommandLauncher: Executing 'chmod' with arguments:
+'640'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/conf/agent-configuration.xml'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[install] [chmod] Applied chmod to 1 file and 0 directories.
+[install] [chmod] 
+[install] [chmod] 
+[install] [chmod] Current OS is Linux
+fileset: Setup scanner in dir /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin with patternSet{ includes: [*.sh] excludes: [] }
+[install] [chmod] Executing 'chmod' with arguments:
+'ug+rx'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/plugin-validator.sh'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent-env.sh'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent-wrapper.sh'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent.sh'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/standalone-pc.sh'
+
+The ' characters around the executable and arguments are
+not part of the command.
+Execute:Java13CommandLauncher: Executing 'chmod' with arguments:
+'ug+rx'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/plugin-validator.sh'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent-env.sh'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent-wrapper.sh'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/rhq-agent.sh'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/bin/standalone-pc.sh'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[install] [chmod] Applied chmod to 5 files and 0 directories.
+[install] [chmod] 
+[install] [chmod] 
+[install] [chmod] Current OS is Linux
+fileset: Setup scanner in dir /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib with patternSet{ includes: [*.s0] excludes: [] }
+[install] [chmod] Skipping fileset for directory /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib. It is empty.
+[install] [chmod] 
+[install] [chmod] 
+[install] [chmod] Current OS is Linux
+fileset: Setup scanner in dir /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib with patternSet{ includes: [*.sl] excludes: [] }
+[install] [chmod] Executing 'chmod' with arguments:
+'ug+rx'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-ia64-hpux-11.sl'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-pa-hpux-11.sl'
+
+The ' characters around the executable and arguments are
+not part of the command.
+Execute:Java13CommandLauncher: Executing 'chmod' with arguments:
+'ug+rx'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-ia64-hpux-11.sl'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-pa-hpux-11.sl'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[install] [chmod] Applied chmod to 2 files and 0 directories.
+[install] [chmod] 
+[install] [chmod] 
+[install] [chmod] Current OS is Linux
+fileset: Setup scanner in dir /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib with patternSet{ includes: [*.dylib] excludes: [] }
+[install] [chmod] Executing 'chmod' with arguments:
+'ug+rx'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-universal-macosx.dylib'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-universal64-macosx.dylib'
+
+The ' characters around the executable and arguments are
+not part of the command.
+Execute:Java13CommandLauncher: Executing 'chmod' with arguments:
+'ug+rx'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-universal-macosx.dylib'
+'/home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-agent/lib/libsigar-universal64-macosx.dylib'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[install] [chmod] Applied chmod to 2 files and 0 directories.
+[install] [chmod] 
+[install] [echo] 
+[install] [echo] Remove the agent distro zip
+[install] [echo] 
+[install] [delete] 
+[install] [delete] Deleting: /home/rsoares/dev/github/luszczynski/docker-images/base/centos7-jon-agent/software/rhq-enterprise-agent-4.12.0.JON330GA.zip
+[install] [delete] 
+[install] [echo] 
+[install] [echo] DONE! Agent version 4.12.0.JON330GA (build number=e347f77) has been installed to .
+[install] [echo] 
+[install] 
+[update] 
+[update] Skipped because property 'rhq.agent.update.update-flag' not set.
+[update] 
+[start] 
+[start] 

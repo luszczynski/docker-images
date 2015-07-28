@@ -1,6 +1,7 @@
-FROM luszczynski/centos7-jon-agent
+#FROM luszczynski/centos7-jon-agent
+FROM rsoares/centos7-jon-agent-experiments
 
-MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
+MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
 RUN yum install -y postgresql-server postgresql-contrib; yum clean all
 
@@ -14,7 +15,6 @@ RUN \
   echo "listen_addresses='*'" >> /var/lib/pgsql/data/postgresql.conf;\
   su -l postgres -c "pg_ctl -l server.log -w -D /var/lib/pgsql/data stop"
 
-USER root
 RUN echo "su -l postgres -c 'pg_ctl -l server.log -w -D /var/lib/pgsql/data start; tail -F server.log'" >> $HOME/run.sh
 
 EXPOSE 5432

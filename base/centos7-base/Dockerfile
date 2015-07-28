@@ -1,36 +1,49 @@
 FROM centos:centos7
 
-MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
+MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael Soares (Tuelho) <rafaelcba@gmail.com>
 
-ENV TERM=xterm HOME=/home/jboss SUPPORT=$HOME/support SOFTWARE=$HOME/software MAVEN_VERSION=3.2.5 M2_HOME=$HOME/.m2
+RUN yum -y update; yum -y install hostname unzip xterm net-tools nc openssh-server wget bsdtar; yum clean all
 
-RUN yum -y update; yum -y install unzip sudo vim xterm net-tools openssh-server wget git bsdtar ; yum clean all
+ENV TERM=xterm SOFTWARE_INSTALL_DIR=/opt/redhat
 
-#RUN curl -sSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar #xzf - -C /usr/share && \
-	#mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven && \
-	#ln -s /usr/share/maven/bin/mvn /usr/bin/mvn && \
-	#chown -R jboss. M2_HOME
-
-# Increase ulimit
-RUN echo "* soft nofile 4096" >> /etc/security/limits.conf && \
-	echo "* hard nofile 4096" >> /etc/security/limits.conf
-
-RUN alias ls="ls --color" && \
-	alias grep="grep --color=auto" && \
-	alias ll="ls -l --color=auto"
-
+RUN mkdir -p $SOFTWARE_INSTALL_DIR
 VOLUME /dnsmasq.hosts
 
-RUN echo '%jboss ALL=(ALL) ALL' >> /etc/sudoers && \
-	useradd -m -d /home/jboss -p jboss jboss  && \
-	echo 'root:redhat' | chpasswd && \
-	mkdir -p $SOFTWARE && mkdir -p $SUPPORT
+COPY support/*.sh /
 
-ONBUILD RUN echo "#!/bin/sh" > $HOME/run.sh && \
-			echo 'while [ "x$MYIP" == "x" ]; do' >> $HOME/run.sh && \
-			echo 'MYIP=$(ip addr | grep "state UP" -A2 | tail -n1 | awk '\''{print $2}'\'' | cut -f1  -d'\''/'\'')' >> $HOME/run.sh && \
-			echo "done" >> $HOME/run.sh && \
-			echo 'echo "$MYIP $(hostname)" > /dnsmasq.hosts/0host_$(hostname)' >> $HOME/run.sh && \
-			echo "echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts" >> $HOME/run.sh && \
-			echo "" >> $HOME/run.sh && \
-			chmod +x $HOME/run.sh
+RUN . /build_setup.sh
+
+CMD ["/bin/cat", "/etc/redhat-release"]
+
+###################
+# IMPORTANT NOTE!!!
+###################
+# from Dockerfile reference manual...
+# https://docs.docker.com/reference/builder/
+
+# Command line arguments to docker run <image> will be appended after all elements 
+# in an exec form ENTRYPOINT, and will override all elements specified using CMD. 
+# This allows arguments to be passed to the entry point, i.e., 
+# docker run <image> -d will pass the -d argument to the entry point. 
+# You can override the ENTRYPOINT instruction using the docker run --entrypoint flag.
+#
+# The shell form prevents any CMD or run command line arguments from being used, 
+# but has the disadvantage that your ENTRYPOINT will be started as a subcommand of /bin/sh -c, 
+# which does not pass signals. 
+# This means that the executable will not be the container’s PID 1 - and will not receive Unix signals - 
+# so your executable will not receive a SIGTERM from docker stop <container>.
+#
+# Only the last ENTRYPOINT instruction in the Dockerfile will have an effect.
+#
+# On derived executable images (services) always use:
+#   ENTRYPOINT ["executable", "param1", "param2"] (the preferred exec form)
+# in a combination with ENTRYPOINT you can use the CMD to pass default exec command's arguments to the ENTRYPOINT.
+# 
+# Command line arguments to docker run <image> will be appended after all elements in an exec form ENTRYPOINT, 
+# and will override all elements specified using CMD. 
+# This allows arguments to be passed to the entry point, i.e., 
+# docker run <image> -d will pass the -d argument to the entry point. 
+# You can override the ENTRYPOINT instruction using the docker run --entrypoint flag.
+#
+# To use ENTRYPOINT and CMD toguether your have to use the exec mode of ENTRYPOINT ["command", "argument"]. I mean not in shel mode ["sh", "-c"]
+

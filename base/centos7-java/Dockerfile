@@ -1,7 +1,11 @@
-FROM luszczynski/centos7-base
+#FROM luszczynski/centos7-base
+FROM rsoares/centos7-base-experiments
 
-MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
+MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael Soares (Tuelho) <rafaelcba@gmail.com>
 
 RUN yum -y install java-1.7.0-openjdk-devel;yum clean all
 
-ENV JAVA_HOME /usr/lib/jvm/jre
+ENV JAVA_HOME /usr/lib/jvm/java
+
+ENTRYPOINT ["java"]
+CMD ["-version"]

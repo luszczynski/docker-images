@@ -1,39 +1,38 @@
-FROM luszczynski/centos7-jon-agent
+#FROM luszczynski/centos7-jon-agent
+FROM rsoares/centos7-jon-agent-experiments
 
-MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
+MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
-ENV EWS_INSTALL_DIR /opt/jboss/ews
+ENV HTTPD_HOME=$SOFTWARE_INSTALL_DIR/jboss-ews-2.1/httpd
 
-RUN mkdir -p $EWS_INSTALL_DIR
+RUN yum install -y apr-util mailcap openssl; yum clean all
 
-RUN yum install -y apr-util mailcap && \
-	yum clean all
+RUN useradd -c "Apache" -u 48 -s /bin/sh -r apache
 
-RUN	useradd -c "Apache" -u 48 -s /bin/sh -r apache
+COPY software/*.zip /tmp/
 
-COPY software/*.zip $SOFTWARE/
+RUN unzip /tmp/jboss-ews-*.zip -d $SOFTWARE_INSTALL_DIR/; \
+	unzip /tmp/jboss-eap-native-*.zip -d $SOFTWARE_INSTALL_DIR/
 
-RUN unzip $SOFTWARE/jboss-ews-httpd-2.1.0-RHEL7-x86_64.zip -d $EWS_INSTALL_DIR/ && \
-	unzip $SOFTWARE/jboss-eap-native-webserver-connectors-6.4.0-RHEL7-x86_64.zip -d $SOFTWARE/
+# remove some unused module's conf
+RUN rm $HTTPD_HOME/conf.d/proxy_ajp.conf; \
+    rm $HTTPD_HOME/conf.d/auth_kerb.conf; \
+    rm $HTTPD_HOME/conf.d/ssl.conf
 
-RUN rm $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/conf.d/proxy_ajp.conf; \
-    rm $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/conf.d/auth_kerb.conf; \
-    rm $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/conf.d/ssl.conf
-	
-COPY support/httpd.conf $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/conf/
-COPY support/snmpd.conf $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/conf/
-COPY support/mod_cluster.conf $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/conf.d/
+# Copy the customized confs
+COPY support/httpd.conf $HTTPD_HOME/conf/
+COPY support/snmpd.conf $HTTPD_HOME/conf/
+COPY support/mod_cluster.conf $HTTPD_HOME/conf.d/
+COPY support/run.sh /
 
-RUN cp $SOFTWARE/jboss-eap-6.4/modules/system/layers/base/native/lib64/httpd/modules/*.so $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/modules/ && \
-	cd $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/ && ./.postinstall && \
-	chown -R apache: $EWS_INSTALL_DIR
+RUN cp $SOFTWARE_INSTALL_DIR/jboss-eap-*/modules/system/layers/base/native/lib64/httpd/modules/*.so \
+	$HTTPD_HOME/modules/
 
-# start.sh
-USER root
-RUN echo 'sed -i "s/ip_apache/$MYIP/g" $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/conf.d/mod_cluster.conf' >> $HOME/run.sh && \
-	echo 'sed -i "s/ip_virtualhost_apache/$MYIP/g" $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/conf.d/mod_cluster.conf' >> $HOME/run.sh && \
-	echo "cd $EWS_INSTALL_DIR/jboss-ews-2.1/httpd/sbin/ && ./apachectl -D FOREGROUND" >> $HOME/run.sh
+WORKDIR $HTTPD_HOME
+RUN . ./.postinstall; chown -R apache: $HTTPD_HOME; rm -r $SOFTWARE_INSTALL_DIR/jboss-eap-*
+
+RUN rm -rf /tmp/jboss*; rm -rf /tmp/rhq*
 
 EXPOSE 80 6666
 
-CMD ["/home/jboss/run.sh"]
+ENTRYPOINT ["/run.sh"]

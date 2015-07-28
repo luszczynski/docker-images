@@ -1,15 +1,20 @@
-FROM luszczynski/centos7-java
+FROM rsoares/centos7-java-experiments
+#FROM luszczynski/centos7-java
 
-MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>
+MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
-ENV INSTALLDIR_JON_AGENT=/opt/jboss/jon JON_AGENT_HOME=$INSTALLDIR_JON_AGENT/rhq-agent
+ENV RHQ_AGENT_HOME=/opt/redhat/rhq-agent 
+ENV RHQ_JAVA_HOME=$JAVA_HOME 
+ENV RHQ_AGENT_DEBUG=true
+# set the agent properties in a way it don't need a static agent-configuration.xml
+ENV RHQ_AGENT_ADDITIONAL_JAVA_OPTS="-Drhq.agent.configuration-setup-flag=true -Drhq.agent.name=\$HOSTNAME -Drhq.agent.server.bind-address=jon-server -Drhq.agent.server-auto-detection=true -Drhq.communications.multicast-detector.enabled=true -Drhq.agent.wait-for-server-at-startup-msecs=600000"
+#"-Drhq.communications.connector.bind-address=$HOSTNAME"
 
-COPY software/rhq-enterprise-agent-4.12.0.JON330GA.jar $SOFTWARE/
-RUN mkdir -p $INSTALLDIR_JON_AGENT && java -jar $SOFTWARE/rhq-enterprise-agent-4.12.0.JON330GA.jar --install=$INSTALLDIR_JON_AGENT/
-COPY support/agent-configuration.xml $JON_AGENT_HOME/conf/
+COPY software/rhq-enterprise-agent-*.jar /tmp/
 
-RUN echo 'sed -i "s/agent_name_script/$(hostname)/g" $JON_AGENT_HOME/conf/agent-configuration.xml' >> $HOME/run.sh && \
-	echo 'sed -i "s/agent_ip_script/$(hostname)/g" $JON_AGENT_HOME/conf/agent-configuration.xml' >> $HOME/run.sh && \
-	echo 'sed -i "s/server_ip_script/jon-server/g" $JON_AGENT_HOME/conf/agent-configuration.xml' >> $HOME/run.sh && \
-	echo "$JON_AGENT_HOME/bin/rhq-agent-wrapper.sh start" >> $HOME/run.sh && \
-	echo "" >> $HOME/run.sh
+RUN java -jar /tmp/rhq-enterprise-agent-*.jar --install=$SOFTWARE_INSTALL_DIR
+RUN rm /tmp/rhq-enterprise-agent-*.jar
+
+ENTRYPOINT ["/opt/redhat/rhq-agent/bin/rhq-agent.sh"]
+
+CMD ["--help"]
