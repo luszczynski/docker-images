@@ -8,7 +8,7 @@
                 <server-identities>
                      <!-- Replace this with either a base64 password of your own, or use a vault with a vault expression -->
                      <!-- set a fixed admin's user password used to coneect with remote DC host -->
-                     <!-- secret value="c2xhdmVfdXNlcl9wYXNzd29yZA==" --/>
+                     <!-- secret value="c2xhdmVfdXNlcl9wYXNzd29yZA==" /-->
                      <secret value="amJvc3NAMTIz"/>
                 </server-identities>
 

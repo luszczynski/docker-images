@@ -5,6 +5,7 @@ MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafae
 # install the JRE to run RHQ Agent
 RUN yum install -y java-1.7.0-openjdk; yum clean all
 
+ENV TERM xterm
 ENV SOFTWARE_INSTALL_DIR /opt/redhat
 ENV JAVA_HOME /usr/lib/jvm/jre
 

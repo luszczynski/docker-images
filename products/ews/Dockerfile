@@ -24,7 +24,6 @@ RUN rm $HTTPD_HOME/conf.d/proxy_ajp.conf; \
 COPY support/httpd.conf $HTTPD_HOME/conf/
 COPY support/snmpd.conf $HTTPD_HOME/conf/
 COPY support/mod_cluster.conf $HTTPD_HOME/conf.d/
-COPY support/run.sh /
 
 # copy the jboss-eap native httpd modules
 RUN cp $SOFTWARE_INSTALL_DIR/jboss-eap-*/modules/system/layers/base/native/lib64/httpd/modules/*.so \
@@ -38,6 +37,8 @@ RUN . ./.postinstall; \
 	rm -r $SOFTWARE_INSTALL_DIR/jboss-eap-*
 
 RUN rm -rf /tmp/jboss*; rm -rf /tmp/rhq*
+
+COPY support/run.sh /
 
 EXPOSE 80 6666
 

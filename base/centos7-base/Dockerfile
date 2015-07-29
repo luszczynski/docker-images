@@ -50,5 +50,10 @@ CMD ["/bin/cat", "/etc/redhat-release"]
 # docker run <image> -d will pass the -d argument to the entry point. 
 # You can override the ENTRYPOINT instruction using the docker run --entrypoint flag.
 #
-# To use ENTRYPOINT and CMD toguether your have to use the exec mode of ENTRYPOINT ["command", "argument"]. I mean not in shel mode ["sh", "-c"]
+# To use ENTRYPOINT and CMD toguether your have to use the exec mode of ENTRYPOINT ["command", "argument"]. 
+# I mean not in shel mode ["sh", "-c"]
+# When creating a Dockerfile, make sure you use exec form of ENTRYPOINT or RUN commands. 
+# Otherwise the application will be started as a subcommand of /bin/sh -c, which does not pass signals. 
+# The container’s PID1 will be the shell, 
+# your application will not receive any signals from the `docker kill` command.
 

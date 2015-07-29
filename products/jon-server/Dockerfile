@@ -5,11 +5,12 @@ MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafae
 
 ENV JON_VERSION=3.3.0.GA
 
-COPY software/*.zip /tmp/
-COPY software/patch/* /tmp/patch/
-COPY support/*.sh /
+COPY software/*.zip       /tmp/
+COPY software/patch/*.zip /tmp/patch/
 
 RUN /install_rhq.sh
+
+COPY support/*.sh /
 
 EXPOSE 7080
 
