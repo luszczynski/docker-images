@@ -7,8 +7,9 @@ RUN yum -y update; yum -y install hostname unzip xterm net-tools nc openssh-serv
 ENV TERM=xterm SOFTWARE_INSTALL_DIR=/opt/redhat
 
 RUN mkdir -p $SOFTWARE_INSTALL_DIR
+
 VOLUME /dnsmasq.hosts
-RUN chmod a+w /dnsmasq.hosts
+RUN chmod -Rf a+w /dnsmasq.hosts
 
 COPY support/*.sh /
 

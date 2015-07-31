@@ -1,5 +1,4 @@
-#FROM luszczynski/centos7-base
-FROM rsoares/centos7-base-experiments
+FROM rsoares/centos7-base
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael Soares (Tuelho) <rafaelcba@gmail.com>
 

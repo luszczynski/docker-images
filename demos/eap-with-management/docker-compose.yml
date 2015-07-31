@@ -1,5 +1,5 @@
 dnsmasq:
-  image: luszczynski/centos7-dnsmasq
+  image: rsoares/centos7-dnsmasq
   ports:
    - "172.17.42.1:53:53/udp"
   volumes:
@@ -8,7 +8,11 @@ dnsmasq:
   privileged: true
   hostname: dnsmasq
 jonpostgres:
-  image: luszczynski/centos7-jon-postgres
+  image: rsoares/centos7-jon-postgres
+  environment:
+   - DB_USER=rhqadmin
+   - DB_PASS=rhqadmin
+   - DB_NAME=rhq
   volumes_from:
    - dnsmasq
   volumes:
@@ -21,7 +25,7 @@ jonpostgres:
   dns:
   - 172.17.42.1
 jonserver:
-  image: luszczynski/centos7-jon-server
+  image: rsoares/centos7-jon-server
   volumes_from:
    - dnsmasq
   volumes:
@@ -30,12 +34,11 @@ jonserver:
   privileged: true
   hostname: jon-server
   links:
-   - dnsmasq
    - jonpostgres
   dns:
   - 172.17.42.1
 apache:
-  image: luszczynski/centos7-apache
+  image: rsoares/centos7-ews
   volumes_from:
    - dnsmasq
   volumes:
@@ -47,15 +50,44 @@ apache:
    - jonserver
   dns:
   - 172.17.42.1
-eapstandalone:
-  image: luszczynski/centos7-eap-standalone
+eapmaster:
+  image: rsoares/centos7-eap6
+  command: domain --host-config=host-master.xml --master-address=localhost
   volumes_from:
    - dnsmasq
   volumes:
    - /etc/timezone:/etc/timezone:ro
    - /tmp/share:/tmp/share
   privileged: true
-  hostname: eap-standalone
+  hostname: master
+  links:
+   - jonserver
+  dns:
+  - 172.17.42.1
+eapslave1:
+  image: rsoares/centos7-eap6
+  command: domain --host-config=host-slave.xml --master-address=master
+  volumes_from:
+   - dnsmasq
+  volumes:
+   - /etc/timezone:/etc/timezone:ro
+   - /tmp/share:/tmp/share
+  privileged: true
+  hostname: eap-slave1
+  links:
+   - jonserver
+  dns:
+  - 172.17.42.1
+eapslave2:
+  image: rsoares/centos7-eap6
+  command: domain --host-config=host-slave.xml --master-address=master
+  volumes_from:
+   - dnsmasq
+  volumes:
+   - /etc/timezone:/etc/timezone:ro
+   - /tmp/share:/tmp/share
+  privileged: true
+  hostname: eap-slave2
   links:
    - jonserver
   dns:

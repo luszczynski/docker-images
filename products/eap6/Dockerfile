@@ -1,4 +1,4 @@
-FROM rsoares/centos7-jon-agent-experiments
+FROM rsoares/centos7-jon-agent
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
@@ -6,13 +6,11 @@ ENV EAP_VERSION=6.4
 ENV JBOSS_HOME=$SOFTWARE_INSTALL_DIR/jboss-eap-$EAP_VERSION
 
 # Create the wildfly user and group
-RUN groupadd -f r jboss -g 433 && \
+RUN groupadd -f -r jboss -g 433 && \
     useradd -u 431 -r -g jboss -d /opt/redhat \
-    -s /sbin/nologin -c "JBoss EAP admin user" jboss
+    -c "JBoss EAP admin user" jboss
 
 RUN chown -R jboss.jboss $SOFTWARE_INSTALL_DIR
-
-USER jboss
 
 COPY software/*.zip         /tmp/
 COPY software/patch/*.zip   /tmp/patch/
@@ -31,6 +29,8 @@ COPY support/run.sh /
 RUN rm -rf /tmp/*.zip; \
     rm -rf /tmp/patch; \
     rm -rf /tmp/modules
+
+RUN chown -Rf jboss.jboss $SOFTWARE_INSTALL_DIR/
 
 # See the complete list here: 
 #   https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Security_Guide/Network_Ports_Used_By_JBoss_Enterprise_Application_Platform_62.html

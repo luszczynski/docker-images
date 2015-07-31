@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RHQ_SERVER_HOME="$SOFTWARE_INSTALL_DIR/jon-server-3.3.0.GA"
+RHQ_SERVER_HOME="$SOFTWARE_INSTALL_DIR/jon-server-$JON_VERSION"
 PATCH_DIR="/tmp/patch"
 PATCH_NAME_PATTERN="jon-server-*update*.zip"
 

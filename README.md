@@ -2,7 +2,13 @@
 
 Here we have some jboss docker images.
 
-## Build
-You have to build each image. To do so, run ./runDocker.sh buildall
 
-Enjoy!
+## NOTE!
+We decided to do a refactorin in some images. So we created thi branch to do this work.
+We started by the base images and the JBoss EAP, JON related ones.
+
+So some images will not work due the changes in base images.
+
+If you want a stable version tryout the master branch.
+
+Kind regards!

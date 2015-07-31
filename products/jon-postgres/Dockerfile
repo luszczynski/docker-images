@@ -16,6 +16,8 @@ RUN rm /tmp/rhq-enterprise-agent-*.jar
 
 COPY support/*.sh /
 
+VOLUME /dnsmasq.hosts
+
 # RHQ Agent TCP port
 EXPOSE 16163
 

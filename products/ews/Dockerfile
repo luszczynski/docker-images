@@ -1,5 +1,4 @@
-#FROM luszczynski/centos7-jon-agent
-FROM rsoares/centos7-jon-agent-experiments
+FROM rsoares/centos7-jon-agent
 
 MAINTAINER Gustavo Luszczynski <gluszczy@redhat.com>, Rafael T. C. Soares <rafaelcba@gmail.com>
 
