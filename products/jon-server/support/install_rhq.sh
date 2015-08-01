@@ -24,8 +24,8 @@ sed -i $seed ${RHQ_SERVER_HOME}/bin/rhq-storage.properties
 
 sed -i 's;^jboss\.bind\.address=;jboss.bind.address=0.0.0.0;g' ${RHQ_SERVER_HOME}/bin/rhq-server.properties
 
-find /tmp -name "*jon-plugin*.zip" -exec unzip '{}' \;
-find /tmp/jon-plugin-* -name "*.jar" -exec cp '{}' ${RHQ_SERVER_HOME}/plugins/ \;
+find /tmp -name "*jon-plugin*.zip" -exec unzip '{}' -d /tmp \;
+find /tmp/jon-plugin-* -name "*.jar" -exec cp -v '{}' ${RHQ_SERVER_HOME}/plugins/ \;
 
 rm -rf /tmp/jon-server-*.zip
 rm -rf /tmp/jon-plugin-*

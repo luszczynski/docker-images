@@ -7,7 +7,7 @@ ENV RHQ_JAVA_HOME=$JAVA_HOME
 ENV RHQ_AGENT_DEBUG=true
 
 # set the agent properties in a way it don't need a static agent-configuration.xml
-ENV RHQ_AGENT_ADDITIONAL_JAVA_OPTS="-Drhq.agent.configuration-setup-flag=true -Drhq.agent.name=\$HOSTNAME -Drhq.agent.server.bind-address=jon-server -Drhq.agent.wait-for-server-at-startup-msecs=600000"
+ENV RHQ_AGENT_ADDITIONAL_JAVA_OPTS="-Drhq.agent.configuration-setup-flag=true -Drhq.agent.server.bind-address=jon-server -Drhq.agent.wait-for-server-at-startup-msecs=600000"
 
 COPY software/rhq-enterprise-agent-*.jar /tmp/
 

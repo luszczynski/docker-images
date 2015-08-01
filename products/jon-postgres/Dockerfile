@@ -14,6 +14,10 @@ COPY software/rhq-enterprise-agent-*.jar /tmp/
 RUN java -jar /tmp/rhq-enterprise-agent-*.jar --install=$SOFTWARE_INSTALL_DIR
 RUN rm /tmp/rhq-enterprise-agent-*.jar
 
+# Apply some tuning to the original PG installation (from base image)
+COPY support/pg_tuning.conf /tmp/
+RUN cat /tmp/pg_tuning.conf >> /var/lib/pgsql/data/postgresql.conf
+
 COPY support/*.sh /
 
 VOLUME /dnsmasq.hosts

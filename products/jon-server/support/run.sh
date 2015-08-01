@@ -15,13 +15,14 @@ then
 
 	#test if the data base backend is up!
 	DB_STATUS="DOWN"
-        while [[ ! -z "$DB_STATUS" -a "$DB_STATUS" == "DOWN"  ]]
+	COUNTER=0
+        while [ "$DB_STATUS" == "DOWN" -a $COUNTER -lt 4 ]
         do
 	   DB_STATUS=`(echo > /dev/tcp/$DB_SERVER/$DB_PORT) >/dev/null 2>&1 && echo "UP" || echo "DOWN"`
-           echo "\n waintig for DB connetion..."
+           echo -e "\t DB connection status: $DB_STATUS"
+           echo -e "\t waintig 5s for DB connetion..."
 	   sleep 5
-
-           
+	   let COUNTER=COUNTER+1
 	done
 
 	if [ ! -z "$DB_STATUS" -a "$DB_STATUS" == "UP"  ]

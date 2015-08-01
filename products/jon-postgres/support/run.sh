@@ -7,7 +7,7 @@
 export RHQ_AGENT_HOME=/opt/redhat/rhq-agent
 export RHQ_JAVA_HOME=$JAVA_HOME
 export RHQ_AGENT_DEBUG=true
-export RHQ_AGENT_ADDITIONAL_JAVA_OPTS="-Drhq.agent.configuration-setup-flag=true -Drhq.agent.name=$HOSTNAME -Drhq.agent.server.bind-address=jon-server -Drhq.agent.wait-for-server-at-startup-msecs=600000"
+export RHQ_AGENT_ADDITIONAL_JAVA_OPTS="-Drhq.agent.configuration-setup-flag=true -Drhq.agent.server.bind-address=jon-server -Drhq.agent.wait-for-server-at-startup-msecs=600000"
 
 # start service in background here
 echo "starting RHQ Agent service..."
